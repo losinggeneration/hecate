@@ -3,7 +3,9 @@
 // #include "SystemBitManager.h"
 #include "World.h"
 
+#ifndef NO_RTTI
 #include <typeinfo>
+#endif
 
 namespace hecate {
 

@@ -23,9 +23,7 @@ public:
 
 private:
 	World *world;
-#ifndef NO_RTTI
 	std::map<std::string, EntitySystem*> systems;
-#endif
 	std::set<EntitySystem*> sets;
 };
 

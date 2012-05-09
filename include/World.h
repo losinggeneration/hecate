@@ -1,7 +1,9 @@
 #ifndef WORLD_H
 #define WORLD_H
 
+#include <map>
 #include <set>
+#include <string>
 
 namespace hecate {
 
@@ -22,9 +24,13 @@ public:
 	EntityManager *getEntityManager();
 	TagManager *getTagManager();
 
-	void setmanager(Manager *manager);
+#ifndef NO_RTTI
+	template<class T> std::string setmanager(T *manager);
+#else
+	std::string setManager(Manager *manager, std::string name);
+#endif
+	template<class T> T *getManager(std::string managerType);
 
-// 	template<class T> T getManager(T managerType);
 	int getDelta();
 	void setDelta(int delta);
 
@@ -48,8 +54,7 @@ private:
 	int delta;
 	std::set<Entity*> refreshed;
 	std::set<Entity*> deleted;
-
-// 	std::map<???, Manager> managers;
+	std::map<std::string, Manager*> managers;
 };
 
 }
