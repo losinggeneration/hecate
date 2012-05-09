@@ -2,6 +2,7 @@
 #include "Component.h"
 #include "Entity.h"
 #include "World.h"
+#include <SystemManager.h>
 
 namespace hecate {
 
@@ -96,6 +97,8 @@ void EntityManager::addComponent(Entity *e, Component component) {
 }
 
 void EntityManager::refresh(Entity *e) {
+	SystemManager *sm = world->getSystemManager();
+	std::set<EntitySystem*> systems = sm->getSystems();
 }
 
 void EntityManager::removeComponent(Entity *e, Component component) {

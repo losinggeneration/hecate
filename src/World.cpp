@@ -89,7 +89,6 @@ void World::loopStart() {
 	}
 }
 
-
 World& World::operator=(const World& other) {
 	return *this;
 }
