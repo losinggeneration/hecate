@@ -1,0 +1,5 @@
+*~
+*.kdev*
+.kdev*
+.*.swp
+build
