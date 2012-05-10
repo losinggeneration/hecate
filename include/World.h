@@ -4,6 +4,7 @@
 #include <map>
 #include <set>
 #include <string>
+#include "Types.h"
 
 namespace hecate {
 
@@ -51,10 +52,12 @@ private:
 	TagManager *tagManager;
 	GroupManager *groupManager;
 
+	typedef std::map<std::string, Manager*> managerMap_t;
+
 	int delta;
-	std::set<Entity*> refreshed;
-	std::set<Entity*> deleted;
-	std::map<std::string, Manager*> managers;
+	entitySet_t refreshed;
+	entitySet_t deleted;
+	managerMap_t managers;
 };
 
 }

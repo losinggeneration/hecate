@@ -1,6 +1,10 @@
 #ifndef ENTITY_H
 #define ENTITY_H
+
+#include <set>
 #include <string>
+
+#include "Types.h"
 
 namespace hecate {
 
@@ -14,16 +18,16 @@ public:
 	int getId();
 	long getUniqueId();
 
-	void addComponent(Component component);
-	void removeComponent(Component component);
-	void removeComponent(ComponentType type);
+	void addComponent(Component *component);
+	void removeComponent(Component *component);
+	void removeComponent(std::string type);
 
 	bool isActive();
 
-	Component getComponent(ComponentType type);
-	template<class T> T getComponent(T type);
+	Component *getComponent(std::string type);
+	template<class T> T *getComponent(std::string type);
 
-	// ImmutableBag<Component> getComponents();
+	componentSet_t getComponents();
 
 	void refresh();
 	void deleteEntity();

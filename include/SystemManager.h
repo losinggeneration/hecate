@@ -4,6 +4,7 @@
 #include <map>
 #include <set>
 #include <string>
+#include "Types.h"
 
 namespace hecate {
 
@@ -17,14 +18,15 @@ public:
 
 	EntitySystem *setSystem(EntitySystem *system);
 	EntitySystem *getSystem(std::string type);
-	std::set<EntitySystem*> getSystems();
+	entitySystemSet_t getSystems();
 
 	void initializeAll();
 
 private:
+	typedef std::map<std::string, EntitySystem*> systemsMap_t;
 	World *world;
-	std::map<std::string, EntitySystem*> systems;
-	std::set<EntitySystem*> sets;
+	systemsMap_t systems;
+	entitySystemSet_t sets;
 };
 
 }

@@ -39,6 +39,7 @@ private:
 	long typeFlags;
 	std::set<Entity*> actives;
 	friend class SystemManager;
+	friend class EntityManager;
 };
 
 }

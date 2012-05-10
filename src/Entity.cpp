@@ -24,33 +24,33 @@ long Entity::getUniqueId() {
 	return uniqueId;
 }
 
-void Entity::addComponent(Component component) {
+void Entity::addComponent(Component *component) {
 	entityManager->addComponent(this, component);
 }
 
-void Entity::removeComponent(Component component) {
+void Entity::removeComponent(Component *component) {
 	entityManager->removeComponent(this, component);
 }
 
-// void Entity::removeComponent(ComponentType type) {
-// 	entityManager->removeComponent(this, type);
-// }
+void Entity::removeComponent(std::string type) {
+	entityManager->removeComponent(this, type);
+}
 
 bool Entity::isActive() {
 	return entityManager->isActive(id);
 }
 
-// Component Entity::getComponent(ComponentType type) {
-// 	return entityManager->getComponent(this, type);
-// }
-//
+Component *Entity::getComponent(std::string type) {
+	return entityManager->getComponent(this, type);
+}
+
 // template<Component T> T Entity::getComponent(T type) {
 // 	return type.cast(getComponent(ComponentTypeManager.getTypeFor(type)));
 // }
 
-// ImmutableBag<Component> Entity::getComponents() {
-// 	return entityManager->getComponents(this);
-// }
+componentSet_t Entity::getComponents() {
+	return entityManager->getComponents(this);
+}
 
 void Entity::refresh() {
 	world->refreshEntity(this);

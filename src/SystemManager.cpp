@@ -30,7 +30,7 @@ EntitySystem *SystemManager::setSystem(EntitySystem *system) {
 }
 
 EntitySystem *SystemManager::getSystem(std::string type) {
-	std::map<std::string, EntitySystem*>::iterator it = systems.find(type);
+	systemsMap_t::iterator it = systems.find(type);
 	if(it != systems.end()) {
 		return (*it).second;
 	}
@@ -38,12 +38,12 @@ EntitySystem *SystemManager::getSystem(std::string type) {
 	return NULL;
 }
 
-std::set<EntitySystem*> SystemManager::getSystems() {
+entitySystemSet_t SystemManager::getSystems() {
 	return sets;
 }
 
 void SystemManager::initializeAll() {
-	for(std::set<EntitySystem*>::iterator it = sets.begin(); it != sets.end(); it++) {
+	for(entitySystemSet_t::iterator it = sets.begin(); it != sets.end(); it++) {
 		(*it)->initialize();
 	}
 }

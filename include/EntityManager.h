@@ -1,7 +1,11 @@
 #ifndef ENTITYMANAGER_H
 #define ENTITYMANAGER_H
 
+#include <map>
 #include <set>
+#include <string>
+
+#include "Types.h"
 
 namespace hecate {
 
@@ -26,26 +30,28 @@ protected:
 	Entity *create();
 	void remove(Entity *e);
 	void removeComponentsOfEntity(Entity *e);
-	void addComponent(Entity *e, Component component);
 	void refresh(Entity *e);
-	void removeComponent(Entity *e, Component component);
-	void removeComponent(Entity *e, ComponentType type);
-	Component *getComponent(Entity *e, ComponentType type);
+	void removeComponent(Entity *e, Component *component);
+#ifndef NO_RTTI
+	std::string addComponent(Entity *e, Component *component);
+	void removeComponent(Entity *e, std::string type);
+	Component *getComponent(Entity *e, std::string type);
+#endif
 	Entity *getEntity(int entityId);
-	const std::set<Component*> getComponents(Entity *e);
+	const componentSet_t getComponents(Entity *e);
 
 private:
 	World *world;
-	std::set<Entity*> activeEntities;
-	std::set<Entity*> removedAndAvailable;
+	entitySet_t activeEntities;
+	entitySet_t removedAndAvailable;
 	int nextAvailableId;
 	int count;
 	long uniqueEntityId;
 	long totalCreated;
 	long totalRemoved;
 
-	std::set<std::set<Component*> > componentsByType;
-	std::set<Component*> entityComponents;
+	entityComponents_t componentsByType;
+	componentSet_t entityComponents;
 	friend class Entity;
 	friend class World;
 };

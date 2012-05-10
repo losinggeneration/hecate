@@ -1,6 +1,7 @@
 #include "EntityManager.h"
 #include "Component.h"
 #include "Entity.h"
+#include "EntitySystem.h"
 #include "World.h"
 #include <SystemManager.h>
 
@@ -11,7 +12,7 @@ EntityManager::EntityManager(World *world) : world(world) {
 }
 
 EntityManager::~EntityManager() {
-	std::set<Entity*>::iterator it = removedAndAvailable.begin();
+	entitySet_t::iterator it = removedAndAvailable.begin();
 	while(it != removedAndAvailable.end()) {
 		Entity *e = *it;
 		removedAndAvailable.erase(it++);
@@ -27,7 +28,7 @@ EntityManager::~EntityManager() {
 }
 
 bool EntityManager::isActive(int entityId) {
-	for(std::set<Entity*>::iterator it = activeEntities.begin(); it != activeEntities.end(); it++) {
+	for(entitySet_t::iterator it = activeEntities.begin(); it != activeEntities.end(); it++) {
 		if((*it)->getId() == entityId) {
 			return true;
 		}
@@ -73,7 +74,7 @@ Entity *EntityManager::create() {
 }
 
 void EntityManager::remove(Entity *e) {
-	std::set<Entity*>::iterator it = activeEntities.find(e);
+	entitySet_t::iterator it = activeEntities.find(e);
 	if(it != activeEntities.end()) {
 		activeEntities.erase(it);
 
@@ -93,28 +94,35 @@ void EntityManager::removeComponentsOfEntity(Entity *e) {
 	}
 }
 
-void EntityManager::addComponent(Entity *e, Component component) {
-}
-
 void EntityManager::refresh(Entity *e) {
 	SystemManager *sm = world->getSystemManager();
-	std::set<EntitySystem*> systems = sm->getSystems();
+	entitySystemSet_t systems = sm->getSystems();
+	for(entitySystemSet_t::iterator it = systems.begin(); it != systems.end(); it++) {
+		(*it)->change(e);
+	}
 }
 
-void EntityManager::removeComponent(Entity *e, Component component) {
+void EntityManager::removeComponent(Entity *e, Component *component) {
 }
 
-// void EntityManager::removeComponent(Entity *e, ComponentType type) {
-// }
+#ifndef NO_RTTI
 
-// Component *EntityManager::getComponent(Entity *e, ComponentType type) {
-// }
+std::string EntityManager::addComponent(Entity *e, Component *component) {
+}
+
+void EntityManager::removeComponent(Entity *e, std::string type) {
+}
+
+Component *EntityManager::getComponent(Entity *e, std::string type) {
+}
+
+#endif
 
 Entity *EntityManager::getEntity(int entityId) {
 
 }
 
-const std::set<Component*> EntityManager::getComponents(Entity *e) {
+const componentSet_t EntityManager::getComponents(Entity *e) {
 	return entityComponents;
 }
 
