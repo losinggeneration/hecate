@@ -1,6 +1,6 @@
 #include "SystemManager.h"
 #include "EntitySystem.h"
-// #include "SystemBitManager.h"
+#include "SystemBitManager.h"
 #include "World.h"
 
 #ifndef NO_RTTI
@@ -32,7 +32,7 @@ EntitySystem *SystemManager::setSystem(EntitySystem *system, std::string type) {
 		sets.insert(system);
 	}
 
-// 	system->setSystemBit(SystemBitManager.getBitFor(typeid(system).name()));
+	system->setSystemBit(SystemBitManager::getBitFor(system));
 
 	return system;
 }
