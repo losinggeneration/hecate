@@ -50,8 +50,7 @@ private:
 	long totalCreated;
 	long totalRemoved;
 
-	entityComponents_t componentsByType;
-	componentSet_t entityComponents;
+	entityComponents_t entityComponents;
 	friend class Entity;
 	friend class World;
 };

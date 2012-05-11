@@ -90,7 +90,13 @@ void EntityManager::remove(Entity *e) {
 }
 
 void EntityManager::removeComponentsOfEntity(Entity *e) {
-	for(int x = 0; x < componentsByType.size(); ++x) {
+	entityComponents_t::iterator it = entityComponents.find(e);
+	if(it != entityComponents.end()) {
+		for(componentSet_t::iterator ct = (*it).second.begin(); ct != (*it).second.end(); ct++) {
+			Component *c = (*ct);
+			(*it).second.erase(ct++);
+			delete c;
+		}
 	}
 }
 
@@ -103,27 +109,75 @@ void EntityManager::refresh(Entity *e) {
 }
 
 void EntityManager::removeComponent(Entity *e, Component *component) {
+	entityComponents_t::iterator it = entityComponents.find(e);
+	if(it != entityComponents.end()) {
+		componentSet_t::iterator ct = (*it).second.find(component);
+		if(ct != (*it).second.end()) {
+			(*it).second.erase(component);
+			delete component;
+			component = NULL;
+		}
+	}
 }
 
 #ifndef NO_RTTI
 
 std::string EntityManager::addComponent(Entity *e, Component *component) {
+	entityComponents[e].insert(component);
 }
 
 void EntityManager::removeComponent(Entity *e, std::string type) {
+	entityComponents_t::iterator it = entityComponents.find(e);
+
+	if(it != entityComponents.end()) {
+		for(componentSet_t::iterator ct = (*it).second.begin(); ct != (*it).second.end();) {
+			if((*ct)->getType() == type) {
+				Component *t = (*ct);
+				(*it).second.erase(ct++);
+				delete t;
+			}
+			else {
+				ct++;
+			}
+		}
+	}
 }
 
 Component *EntityManager::getComponent(Entity *e, std::string type) {
+	entityComponents_t::iterator it = entityComponents.find(e);
+	if(it != entityComponents.end()) {
+		for(componentSet_t::iterator ct = (*it).second.begin(); ct != (*it).second.end(); ct++) {
+			if((*ct)->getType() == type) {
+				return (*ct);
+			}
+		}
+	}
+
+	return NULL;
 }
 
 #endif
 
 Entity *EntityManager::getEntity(int entityId) {
+	for(entitySet_t::iterator it = activeEntities.begin(); it != activeEntities.end(); it++) {
+		if((*it)->getId() == entityId) {
+			return *it;
+		}
+	}
 
+	return NULL;
 }
 
 const componentSet_t EntityManager::getComponents(Entity *e) {
-	return entityComponents;
+	entityComponents_t::iterator it = entityComponents.find(e);
+	if(it != entityComponents.end()) {
+		// We found an entity, return the set associated with it
+		return it->second;
+	}
+
+	// Return an empty set
+	componentSet_t empty;
+	return empty;
 }
 
 }

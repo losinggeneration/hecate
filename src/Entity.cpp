@@ -44,9 +44,9 @@ Component *Entity::getComponent(std::string type) {
 	return entityManager->getComponent(this, type);
 }
 
-// template<Component T> T Entity::getComponent(T type) {
-// 	return type.cast(getComponent(ComponentTypeManager.getTypeFor(type)));
-// }
+template<class T> T *Entity::getComponent(std::string type) {
+	return dynamic_cast<T>(getComponent(type));
+}
 
 componentSet_t Entity::getComponents() {
 	return entityManager->getComponents(this);
