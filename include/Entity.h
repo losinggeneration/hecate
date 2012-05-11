@@ -52,6 +52,7 @@ protected:
 	void reset();
 	friend class World;
 	friend class EntityManager;
+	friend class EntitySystem;
 
 private:
 	int id;
