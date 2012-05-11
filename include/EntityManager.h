@@ -31,12 +31,16 @@ protected:
 	void remove(Entity *e);
 	void removeComponentsOfEntity(Entity *e);
 	void refresh(Entity *e);
-	void removeComponent(Entity *e, Component *component);
+
 #ifndef NO_RTTI
+	template<class T> void removeComponent(Entity *e, T *t);
+	template<class T> std::string addComponent(Entity *e, T *t);
+#endif
+
+	void removeComponent(Entity *e, Component *component);
 	std::string addComponent(Entity *e, Component *component);
 	void removeComponent(Entity *e, std::string type);
 	Component *getComponent(Entity *e, std::string type);
-#endif
 	Entity *getEntity(int entityId);
 	const componentSet_t getComponents(Entity *e);
 

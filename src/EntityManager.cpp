@@ -2,8 +2,10 @@
 #include "Component.h"
 #include "Entity.h"
 #include "EntitySystem.h"
+#include "SystemManager.h"
 #include "World.h"
-#include <SystemManager.h>
+
+#include <typeinfo>
 
 namespace hecate {
 
@@ -108,6 +110,22 @@ void EntityManager::refresh(Entity *e) {
 	}
 }
 
+#ifndef NO_RTTI
+
+template<class T> void EntityManager::removeComponent(Entity *e, T *t) {
+	if(t->getType() == "") {
+		t->setType(typeid(t).name());
+	}
+
+	removeComponent(e, t->getType());
+}
+
+template<class T> std::string EntityManager::addComponent(Entity *e, T *t) {
+	t->setType(typeid(t).name());
+	return addComponent(e, t->getType());
+}
+#endif
+
 void EntityManager::removeComponent(Entity *e, Component *component) {
 	entityComponents_t::iterator it = entityComponents.find(e);
 	if(it != entityComponents.end()) {
@@ -120,10 +138,9 @@ void EntityManager::removeComponent(Entity *e, Component *component) {
 	}
 }
 
-#ifndef NO_RTTI
-
 std::string EntityManager::addComponent(Entity *e, Component *component) {
 	entityComponents[e].insert(component);
+	return component->getType();
 }
 
 void EntityManager::removeComponent(Entity *e, std::string type) {
@@ -155,8 +172,6 @@ Component *EntityManager::getComponent(Entity *e, std::string type) {
 
 	return NULL;
 }
-
-#endif
 
 Entity *EntityManager::getEntity(int entityId) {
 	for(entitySet_t::iterator it = activeEntities.begin(); it != activeEntities.end(); it++) {
