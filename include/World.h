@@ -27,9 +27,8 @@ public:
 
 #ifndef NO_RTTI
 	template<class T> std::string setmanager(T *manager);
-#else
-	std::string setManager(Manager *manager, std::string name);
 #endif
+	std::string setManager(Manager *manager, std::string name);
 	template<class T> T *getManager(std::string managerType);
 
 	int getDelta();

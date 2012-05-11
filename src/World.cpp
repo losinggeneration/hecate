@@ -43,21 +43,20 @@ TagManager *World::getTagManager() {
 }
 
 #ifndef NO_RTTI
+
 template<class T> std::string World::setmanager(T *manager) {
-	if(managers.find(typeid(manager).name()) != managers.end()) {
-		managers.insert(typeid(manager).name(), manager);
-	}
-	return typeid(manager).name();
+	return setmanager(manager, typeid(manager).name());
 }
-#else
+
+#endif
+
 std::string World::setManager(Manager *manager, std::string name) {
 	if(managers.find(name) != managers.end()) {
-		managers.insert(name, manager);
+		managers[name] = manager;
 	}
 
 	return name;
 }
-#endif
 
 template<class T> T *World::getManager(std::string managerType) {
 	std::map<std::string, Manager*>::iterator it = managers.find(managerType);
