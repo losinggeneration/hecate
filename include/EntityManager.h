@@ -25,8 +25,6 @@ public:
 	long getTotalRemoved();
 
 protected:
-	EntityManager(const EntityManager& other);
-
 	Entity *create();
 	void remove(Entity *e);
 	void removeComponentsOfEntity(Entity *e);
@@ -45,6 +43,10 @@ protected:
 	const componentSet_t getComponents(Entity *e);
 
 private:
+	// hide the copy constructor and assignment operator
+	EntityManager(const EntityManager& other) {}
+	EntityManager &operator=(const EntityManager c) { return *this; }
+
 	World *world;
 	entitySet_t activeEntities;
 	entitySet_t removedAndAvailable;

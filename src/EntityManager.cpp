@@ -52,11 +52,6 @@ long EntityManager::getTotalRemoved() {
 	return totalRemoved;
 }
 
-// Really shouldn't be using the copy constructor...
-EntityManager::EntityManager(const EntityManager &other) : world(other.world) {
-	count = totalCreated = totalRemoved = nextAvailableId = 0;
-}
-
 Entity *EntityManager::create() {
 	// Reuse an entity over creating a new one
 	Entity *e = *removedAndAvailable.end();
