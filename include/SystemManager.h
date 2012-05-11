@@ -16,7 +16,10 @@ public:
 	SystemManager(World *world);
 	~SystemManager();
 
-	EntitySystem *setSystem(EntitySystem *system);
+#ifndef NO_RTTI
+	template<class T> EntitySystem *setSystem(T *system);
+#endif
+	EntitySystem *setSystem(EntitySystem *system, std::string type);
 	EntitySystem *getSystem(std::string type);
 	entitySystemSet_t getSystems();
 

@@ -1,12 +1,12 @@
-#include <string>
-#include <sstream>
-
 #include "Entity.h"
 #include "Component.h"
 #include "EntityManager.h"
 #include "GroupManager.h"
 #include "TagManager.h"
 #include "World.h"
+
+#include <string>
+#include <sstream>
 
 namespace hecate {
 

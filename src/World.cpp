@@ -5,7 +5,9 @@
 #include "TagManager.h"
 #include "SystemManager.h"
 
+#ifndef NO_RTTI
 #include <typeinfo>
+#endif
 
 namespace hecate {
 

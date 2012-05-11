@@ -15,11 +15,19 @@ SystemManager::SystemManager(World *world) : world(world) {
 SystemManager::~SystemManager() {
 }
 
-EntitySystem *SystemManager::setSystem(EntitySystem *system) {
-	system->setWorld(world);
 #ifndef NO_RTTI
-	systems[typeid(system).name()] = system;
+
+template<class T> EntitySystem *SystemManager::setSystem(T *system) {
+	return setSystem(system, typeid(system).name());
+}
+
 #endif
+
+EntitySystem *SystemManager::setSystem(EntitySystem *system, std::string type) {
+	system->setWorld(world);
+
+	systems[type] = system;
+
 	if(sets.find(system) != sets.end()) {
 		sets.insert(system);
 	}
