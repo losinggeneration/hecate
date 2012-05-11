@@ -11,7 +11,7 @@ class World;
 class EntitySystem {
 public:
 	EntitySystem();
-// 	EntitySystem(Class<? extends Component>... types);
+	template<class T> EntitySystem(std::set<T*> types);
 	// Do not override!
 	void process();
 
@@ -28,7 +28,7 @@ protected:
 	void change(Entity *e);
 	// Do not override!
 	void setWorld(World *world);
-// 	static Class<? extends Component>[] getMergedTypes(Class<? extends Component> requiredType, Class<? extends Component>[] otherTypes);
+	template<class T> static std::set<T*> getMergedTypes(T* requiredType, std::set<T*> otherTypes);
 
 	World *world;
 
