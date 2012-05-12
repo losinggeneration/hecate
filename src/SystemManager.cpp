@@ -3,10 +3,6 @@
 #include "SystemBitManager.h"
 #include "World.h"
 
-#ifndef NO_RTTI
-#include <typeinfo>
-#endif
-
 namespace hecate {
 
 SystemManager::SystemManager(World *world) : world(world) {
@@ -15,18 +11,8 @@ SystemManager::SystemManager(World *world) : world(world) {
 SystemManager::~SystemManager() {
 }
 
-#ifndef NO_RTTI
-
-template<class T> EntitySystem *SystemManager::setSystem(T *system) {
-	return setSystem(system, typeid(system).name());
-}
-
-#endif
-
-EntitySystem *SystemManager::setSystem(EntitySystem *system, std::string type) {
+EntitySystem *SystemManager::setSystem(EntitySystem *system) {
 	system->setWorld(world);
-
-	systems[type] = system;
 
 	if(sets.find(system) != sets.end()) {
 		sets.insert(system);
@@ -37,10 +23,10 @@ EntitySystem *SystemManager::setSystem(EntitySystem *system, std::string type) {
 	return system;
 }
 
-EntitySystem *SystemManager::getSystem(std::string type) {
+template<class T> T *SystemManager::getSystem(T *type) {
 	systemsMap_t::iterator it = systems.find(type);
 	if(it != systems.end()) {
-		return (*it).second;
+		return dynamic_cast<T>((*it).second);
 	}
 
 	return NULL;

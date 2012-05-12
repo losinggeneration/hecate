@@ -30,15 +30,10 @@ protected:
 	void removeComponentsOfEntity(Entity *e);
 	void refresh(Entity *e);
 
-#ifndef NO_RTTI
-	template<class T> void removeComponent(Entity *e, T *t);
-	template<class T> std::string addComponent(Entity *e, T *t);
-#endif
-
 	void removeComponent(Entity *e, Component *component);
-	std::string addComponent(Entity *e, Component *component);
-	void removeComponent(Entity *e, std::string type);
-	Component *getComponent(Entity *e, std::string type);
+	void addComponent(Entity *e, Component *component);
+	void removeComponent(Entity *e, const ComponentType &type);
+	Component *getComponent(Entity *e, const ComponentType &type);
 	Entity *getEntity(int entityId);
 	const componentSet_t getComponents(Entity *e);
 
@@ -46,6 +41,9 @@ private:
 	// hide the copy constructor and assignment operator
 	EntityManager(const EntityManager& other) {}
 	EntityManager &operator=(const EntityManager c) { return *this; }
+
+	typedef std::map<int, Component*> componentMap_t;
+	typedef std::map<int, componentMap_t> componentsTypeMap_t;
 
 	World *world;
 	entitySet_t activeEntities;
@@ -57,6 +55,7 @@ private:
 	long totalRemoved;
 
 	entityComponents_t entityComponents;
+	componentsTypeMap_t componentsByType;
 	friend class Entity;
 	friend class World;
 };

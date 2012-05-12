@@ -1,13 +1,11 @@
 #include "EntityManager.h"
 #include "Component.h"
+#include "ComponentType.h"
+#include "ComponentTypeManager.h"
 #include "Entity.h"
 #include "EntitySystem.h"
 #include "SystemManager.h"
 #include "World.h"
-
-#ifndef NO_RTTI
-#include <typeinfo>
-#endif
 
 namespace hecate {
 
@@ -78,7 +76,7 @@ void EntityManager::remove(Entity *e) {
 		activeEntities.erase(it);
 
 		e->setTypeBits(0);
-		e->refresh();
+		refresh(e);
 		removeComponentsOfEntity(e);
 
 		count--;
@@ -89,11 +87,13 @@ void EntityManager::remove(Entity *e) {
 }
 
 void EntityManager::removeComponentsOfEntity(Entity *e) {
-	entityComponents_t::iterator it = entityComponents.find(e);
-	if(it != entityComponents.end()) {
-		for(componentSet_t::iterator ct = (*it).second.begin(); ct != (*it).second.end(); ct++) {
-			Component *c = (*ct);
-			(*it).second.erase(ct++);
+	for(componentsTypeMap_t::iterator it = componentsByType.begin(); it != componentsByType.end(); it++) {
+		componentMap_t components = (*it).second;
+
+		componentMap_t::iterator ct = components.find(e->getId());
+		if(ct != components.end()) {
+			Component *c = (*ct).second;
+			components.erase(ct);
 			delete c;
 		}
 	}
@@ -107,67 +107,28 @@ void EntityManager::refresh(Entity *e) {
 	}
 }
 
-#ifndef NO_RTTI
-
-template<class T> void EntityManager::removeComponent(Entity *e, T *t) {
-	if(t->getType() == "") {
-		t->setType(typeid(t).name());
-	}
-
-	removeComponent(e, t->getType());
-}
-
-template<class T> std::string EntityManager::addComponent(Entity *e, T *t) {
-	t->setType(typeid(t).name());
-	return addComponent(e, t->getType());
-}
-#endif
-
 void EntityManager::removeComponent(Entity *e, Component *component) {
-	entityComponents_t::iterator it = entityComponents.find(e);
-	if(it != entityComponents.end()) {
-		componentSet_t::iterator ct = (*it).second.find(component);
-		if(ct != (*it).second.end()) {
-			(*it).second.erase(component);
-			delete component;
-			component = NULL;
-		}
-	}
+	ComponentType type = ComponentTypeManager::getTypeFor(*component);
+	removeComponent(e, type);
+
 }
 
-std::string EntityManager::addComponent(Entity *e, Component *component) {
-	entityComponents[e].insert(component);
-	return component->getType();
+void EntityManager::addComponent(Entity *e, Component *component) {
+	ComponentType type = ComponentTypeManager::getTypeFor(*component);
+
+	componentMap_t components = componentsByType[type.getId()];
+
+	components[e->getId()] = component;
+
+	e->addTypeBit(type.getBit());
 }
 
-void EntityManager::removeComponent(Entity *e, std::string type) {
-	entityComponents_t::iterator it = entityComponents.find(e);
+void EntityManager::removeComponent(Entity *e, const ComponentType &type) {
 
-	if(it != entityComponents.end()) {
-		for(componentSet_t::iterator ct = (*it).second.begin(); ct != (*it).second.end();) {
-			if((*ct)->getType() == type) {
-				Component *t = (*ct);
-				(*it).second.erase(ct++);
-				delete t;
-			}
-			else {
-				ct++;
-			}
-		}
-	}
 }
 
-Component *EntityManager::getComponent(Entity *e, std::string type) {
-	entityComponents_t::iterator it = entityComponents.find(e);
-	if(it != entityComponents.end()) {
-		for(componentSet_t::iterator ct = (*it).second.begin(); ct != (*it).second.end(); ct++) {
-			if((*ct)->getType() == type) {
-				return (*ct);
-			}
-		}
-	}
+Component *EntityManager::getComponent(Entity *e, const ComponentType &type) {
 
-	return NULL;
 }
 
 Entity *EntityManager::getEntity(int entityId) {

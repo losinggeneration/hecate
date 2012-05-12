@@ -25,11 +25,8 @@ public:
 	EntityManager *getEntityManager();
 	TagManager *getTagManager();
 
-#ifndef NO_RTTI
-	template<class T> std::string setmanager(T *manager);
-#endif
-	std::string setManager(Manager *manager, std::string name);
-	template<class T> T *getManager(std::string managerType);
+	void setManager(Manager *manager);
+	template<class T> T *getManager(T *managerType);
 
 	int getDelta();
 	void setDelta(int delta);
@@ -51,12 +48,12 @@ private:
 	TagManager *tagManager;
 	GroupManager *groupManager;
 
-	typedef std::map<std::string, Manager*> managerMap_t;
+	typedef std::set<Manager*> managerSet_t;
 
 	int delta;
 	entitySet_t refreshed;
 	entitySet_t deleted;
-	managerMap_t managers;
+	managerSet_t managers;
 };
 
 }

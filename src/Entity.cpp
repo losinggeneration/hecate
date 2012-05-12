@@ -32,7 +32,7 @@ void Entity::removeComponent(Component *component) {
 	entityManager->removeComponent(this, component);
 }
 
-void Entity::removeComponent(std::string type) {
+void Entity::removeComponent(const ComponentType &type) {
 	entityManager->removeComponent(this, type);
 }
 
@@ -40,11 +40,11 @@ bool Entity::isActive() {
 	return entityManager->isActive(id);
 }
 
-Component *Entity::getComponent(std::string type) {
+Component *Entity::getComponent(const ComponentType &type) {
 	return entityManager->getComponent(this, type);
 }
 
-template<class T> T *Entity::getComponent(std::string type) {
+template<class T> T *Entity::getComponent(const ComponentType &type) {
 	return dynamic_cast<T>(getComponent(type));
 }
 

@@ -5,10 +5,6 @@
 #include "TagManager.h"
 #include "SystemManager.h"
 
-#ifndef NO_RTTI
-#include <typeinfo>
-#endif
-
 namespace hecate {
 
 World::World() {
@@ -44,26 +40,16 @@ TagManager *World::getTagManager() {
 	return tagManager;
 }
 
-#ifndef NO_RTTI
-
-template<class T> std::string World::setmanager(T *manager) {
-	return setmanager(manager, typeid(manager).name());
-}
-
-#endif
-
-std::string World::setManager(Manager *manager, std::string name) {
-	if(managers.find(name) != managers.end()) {
-		managers[name] = manager;
+void World::setManager(Manager *manager) {
+	if(managers.find(manager) == managers.end()) {
+		managers.insert(manager);
 	}
-
-	return name;
 }
 
-template<class T> T *World::getManager(std::string managerType) {
-	std::map<std::string, Manager*>::iterator it = managers.find(managerType);
+template<class T> T *World::getManager(T *managerType) {
+	managerSet_t::iterator it = managers.find(managerType);
 	if(it != managers.end()) {
-		return dynamic_cast<T>(it->second);
+		return dynamic_cast<T>(*it);
 	}
 
 	return NULL;

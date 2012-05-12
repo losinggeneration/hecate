@@ -20,12 +20,12 @@ public:
 
 	void addComponent(Component *component);
 	void removeComponent(Component *component);
-	void removeComponent(std::string type);
+	void removeComponent(const ComponentType &type);
 
 	bool isActive();
 
-	Component *getComponent(std::string type);
-	template<class T> T *getComponent(std::string type);
+	Component *getComponent(const ComponentType &type);
+	template<class T> T *getComponent(const ComponentType &type);
 
 	componentSet_t getComponents();
 

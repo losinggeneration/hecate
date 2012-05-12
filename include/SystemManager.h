@@ -8,6 +8,7 @@
 
 namespace hecate {
 
+class ComponentType;
 class EntitySystem;
 class World;
 
@@ -16,11 +17,8 @@ public:
 	SystemManager(World *world);
 	~SystemManager();
 
-#ifndef NO_RTTI
-	template<class T> EntitySystem *setSystem(T *system);
-#endif
-	EntitySystem *setSystem(EntitySystem *system, std::string type);
-	EntitySystem *getSystem(std::string type);
+	EntitySystem *setSystem(EntitySystem *system);
+	template<class T> T *getSystem(T *type);
 	entitySystemSet_t getSystems();
 
 	void initializeAll();

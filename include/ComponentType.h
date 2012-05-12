@@ -5,30 +5,16 @@ namespace hecate {
 
 class ComponentType {
 public:
-	ComponentType() {
-		init();
-	}
+	ComponentType();
 
-	long getBit() {
-		return bit;
-	}
-
-	int getId() {
-		return id;
-	}
+	int getId();
+	long getBit();
 
 private:
-	void init() {
-		bit = nextBit;
-		nextBit <<= 1;
-		id = nextId++;
-	}
+	void init();
 
-	static long nextBit;
-	static int nextId;
-
-	long bit;
 	int id;
+	long bit;
 };
 
 }

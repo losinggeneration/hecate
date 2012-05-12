@@ -1,3 +1,5 @@
+#include "ComponentType.h"
+#include "ComponentTypeManager.h"
 #include "EntitySystem.h"
 #include "Entity.h"
 
@@ -8,8 +10,7 @@ EntitySystem::EntitySystem() {
 
 template<class T> EntitySystem::EntitySystem(std::set<T*> types) {
 	for(typename std::set<T*>::iterator it = types.begin(); it != types.end(); it++) {
-		//ComponentType ct = ComponentTypeManager.getTypeFor(type);
-		//typeFlags |= ct.getBit();
+		ComponentType ct = ComponentTypeManager::getTypeFor(*it);
 	}
 }
 
