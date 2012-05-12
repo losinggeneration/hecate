@@ -27,20 +27,21 @@ public:
 protected:
 	Entity *create();
 	void remove(Entity *e);
-	void removeComponentsOfEntity(Entity *e);
+	Entity *getEntity(int entityId);
 	void refresh(Entity *e);
 
-	void removeComponent(Entity *e, Component *component);
 	void addComponent(Entity *e, Component *component);
+	void removeComponent(Entity *e, Component *component);
 	void removeComponent(Entity *e, const ComponentType &type);
 	Component *getComponent(Entity *e, const ComponentType &type);
-	Entity *getEntity(int entityId);
 	const componentSet_t getComponents(Entity *e);
 
 private:
 	// hide the copy constructor and assignment operator
 	EntityManager(const EntityManager& other) {}
 	EntityManager &operator=(const EntityManager c) { return *this; }
+
+	void removeComponentsOfEntity(Entity *e);
 
 	typedef std::map<int, Component*> componentMap_t;
 	typedef std::map<int, componentMap_t> componentsTypeMap_t;
@@ -54,7 +55,8 @@ private:
 	long totalCreated;
 	long totalRemoved;
 
-	entityComponents_t entityComponents;
+	componentSet_t entityComponents;
+	// Maped by type.id for components, and then by entity.id for each entity
 	componentsTypeMap_t componentsByType;
 	friend class Entity;
 	friend class World;
