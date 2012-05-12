@@ -7,8 +7,8 @@ class ComponentType {
 public:
 	ComponentType();
 
-	int getId();
-	long getBit();
+	int getId() const;
+	long getBit() const;
 
 private:
 	void init();

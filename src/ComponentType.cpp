@@ -14,11 +14,11 @@ void ComponentType::init() {
 	nextBit <<= 1;
 }
 
-int ComponentType::getId() {
+int ComponentType::getId() const {
 	return id;
 }
 
-long ComponentType::getBit() {
+long ComponentType::getBit() const {
 	return bit;
 }
 
