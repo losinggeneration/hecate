@@ -1,5 +1,6 @@
 #include "Entity.h"
 #include "Component.h"
+#include "ComponentTypeManager.h"
 #include "EntityManager.h"
 #include "GroupManager.h"
 #include "TagManager.h"
@@ -44,8 +45,8 @@ Component *Entity::getComponent(const ComponentType &type) {
 	return entityManager->getComponent(this, type);
 }
 
-template<class T> T *Entity::getComponent(const ComponentType &type) {
-	return dynamic_cast<T>(getComponent(type));
+template<class T> T *Entity::getComponent(T *type) {
+	return dynamic_cast<T>(getComponent(ComponentTypeManager::getTypeFor(type)));
 }
 
 componentSet_t Entity::getComponents() {

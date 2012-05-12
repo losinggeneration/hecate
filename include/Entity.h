@@ -25,7 +25,7 @@ public:
 	bool isActive();
 
 	Component *getComponent(const ComponentType &type);
-	template<class T> T *getComponent(const ComponentType &type);
+	template<class T> T *getComponent(T *type);
 
 	componentSet_t getComponents();
 
