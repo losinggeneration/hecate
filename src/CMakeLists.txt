@@ -9,6 +9,7 @@ add_library(hecate
 	EntityProcessingSystem.cpp
 	EntitySystem.cpp
 	GroupManager.cpp
+	SystemBitManager.cpp
 	SystemManager.cpp
 	TagManager.cpp
 	World.cpp
