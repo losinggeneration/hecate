@@ -8,7 +8,6 @@
 
 namespace hecate {
 
-class ComponentType;
 class EntitySystem;
 class World;
 
@@ -24,9 +23,7 @@ public:
 	void initializeAll();
 
 private:
-	typedef std::map<std::string, EntitySystem*> systemsMap_t;
 	World *world;
-	systemsMap_t systems;
 	entitySystemSet_t sets;
 };
 

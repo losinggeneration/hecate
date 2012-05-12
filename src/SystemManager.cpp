@@ -24,9 +24,9 @@ EntitySystem *SystemManager::setSystem(EntitySystem *system) {
 }
 
 template<class T> T *SystemManager::getSystem(T *type) {
-	systemsMap_t::iterator it = systems.find(type);
-	if(it != systems.end()) {
-		return dynamic_cast<T>((*it).second);
+	entitySystemSet_t::iterator it = sets.find(type);
+	if(it != sets.end()) {
+		return dynamic_cast<T>(*it);
 	}
 
 	return NULL;
