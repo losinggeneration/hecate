@@ -7,8 +7,8 @@ ComponentType::ComponentType() {
 }
 
 void ComponentType::init() {
-	static int nextId;
-	static long nextBit;
+	static int nextId = 1;
+	static long nextBit = 1;
 	id = nextId++;
 	bit = nextBit;
 	nextBit <<= 1;
