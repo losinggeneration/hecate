@@ -15,19 +15,19 @@ class ComponentType;
 
 class Entity {
 public:
-	int getId();
-	long getUniqueId();
+	int getId() const;
+	long getUniqueId() const;
 
 	void addComponent(Component *component);
 	void removeComponent(Component *component);
 	void removeComponent(const ComponentType &type);
 
-	bool isActive();
+	bool isActive() const;
 
-	Component *getComponent(const ComponentType &type);
-	template<class T> T *getComponent(T *type);
+	Component *getComponent(const ComponentType &type) const;
+	template<class T> T *getComponent(const T &type) const;
 
-	componentSet_t getComponents();
+	componentSet_t getComponents() const;
 
 	void refresh();
 	void deleteEntity();
@@ -35,17 +35,17 @@ public:
 	void setGroup(std::string group);
 	void setTag(std::string tag);
 
-	std::string toString();
+	std::string toString() const;
 
 protected:
     Entity(World *world, int id);
 	~Entity();
 	void setUniqueId(long uniqueId);
-	long getTypeBits();
+	long getTypeBits()const ;
 	void addTypeBit(long bit);
 	void removeTypeBit(long bit);
 	void setTypeBits(long typeBits);
-	long getSystemBits();
+	long getSystemBits() const;
 	void addSystemBit(long bit);
 	void removeSystemBit(long bit);
 	void setSystemBits(long systemBits);

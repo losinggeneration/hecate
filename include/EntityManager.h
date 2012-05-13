@@ -19,22 +19,22 @@ public:
 	EntityManager(World *world);
 	virtual ~EntityManager();
 
-	bool isActive(int entityId);
-	int getEntityCount();
-	long getTotalCreated();
-	long getTotalRemoved();
+	bool isActive(int entityId) const;
+	int getEntityCount() const;
+	long getTotalCreated() const;
+	long getTotalRemoved() const;
 
 protected:
 	Entity *create();
 	void remove(Entity *e);
-	Entity *getEntity(int entityId);
+	Entity *getEntity(int entityId) const;
 	void refresh(Entity *e);
 
 	void addComponent(Entity *e, Component *component);
 	void removeComponent(Entity *e, Component *component);
 	void removeComponent(Entity *e, const ComponentType &type);
-	Component *getComponent(Entity *e, const ComponentType &type);
-	const componentSet_t getComponents(Entity *e);
+	Component *getComponent(const Entity &e, const ComponentType &type);
+	const componentSet_t getComponents(const Entity &e);
 
 private:
 	// hide the copy constructor and assignment operator

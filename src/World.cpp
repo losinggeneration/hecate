@@ -24,19 +24,19 @@ World::~World() {
 	delete tagManager;
 }
 
-GroupManager *World::getGroupManager() {
+GroupManager *World::getGroupManager() const {
 	return groupManager;
 }
 
-SystemManager *World::getSystemManager() {
+SystemManager *World::getSystemManager() const {
 	return systemManager;
 }
 
-EntityManager *World::getEntityManager() {
+EntityManager *World::getEntityManager() const {
 	return entityManager;
 }
 
-TagManager *World::getTagManager() {
+TagManager *World::getTagManager() const {
 	return tagManager;
 }
 
@@ -46,7 +46,7 @@ void World::setManager(Manager *manager) {
 	}
 }
 
-template<class T> T *World::getManager(T *managerType) {
+template<class T> T *World::getManager(const T &managerType) const {
 	managerSet_t::iterator it = managers.find(managerType);
 	if(it != managers.end()) {
 		return dynamic_cast<T>(*it);
@@ -55,7 +55,7 @@ template<class T> T *World::getManager(T *managerType) {
 	return NULL;
 }
 
-int World::getDelta() {
+int World::getDelta() const {
 	return delta;
 }
 
@@ -77,7 +77,7 @@ Entity *World::createEntity() {
 	return entityManager->create();
 }
 
-Entity *World::getEntity(int entityId) {
+Entity *World::getEntity(int entityId) const {
 	return entityManager->getEntity(entityId);
 }
 

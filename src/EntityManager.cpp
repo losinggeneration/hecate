@@ -29,7 +29,7 @@ EntityManager::~EntityManager() {
 	}
 }
 
-bool EntityManager::isActive(int entityId) {
+bool EntityManager::isActive(int entityId) const {
 	for(entitySet_t::iterator it = activeEntities.begin(); it != activeEntities.end(); it++) {
 		if((*it)->getId() == entityId) {
 			return true;
@@ -38,15 +38,15 @@ bool EntityManager::isActive(int entityId) {
 	return false;
 }
 
-int EntityManager::getEntityCount() {
+int EntityManager::getEntityCount() const {
 	return count;
 }
 
-long EntityManager::getTotalCreated() {
+long EntityManager::getTotalCreated() const {
 	return totalCreated;
 }
 
-long EntityManager::getTotalRemoved() {
+long EntityManager::getTotalRemoved() const {
 	return totalRemoved;
 }
 
@@ -86,7 +86,7 @@ void EntityManager::remove(Entity *e) {
 	}
 }
 
-Entity *EntityManager::getEntity(int entityId) {
+Entity *EntityManager::getEntity(int entityId) const {
 	for(entitySet_t::iterator it = activeEntities.begin(); it != activeEntities.end(); it++) {
 		if((*it)->getId() == entityId) {
 			return *it;
@@ -133,12 +133,12 @@ void EntityManager::removeComponent(Entity *e, const ComponentType &type) {
 	}
 }
 
-Component *EntityManager::getComponent(Entity *e, const ComponentType &type) {
+Component *EntityManager::getComponent(const Entity &e, const ComponentType &type) {
 	componentsTypeMap_t::iterator it = componentsByType.find(type.getId());
 
 	if(it != componentsByType.end()) {
 		componentMap_t components = componentsByType[type.getId()];
-		componentMap_t::iterator ct = components.find(e->getId());
+		componentMap_t::iterator ct = components.find(e.getId());
 
 		if(ct != components.end()) {
 			return ct->second;
@@ -148,12 +148,12 @@ Component *EntityManager::getComponent(Entity *e, const ComponentType &type) {
 	return NULL;
 }
 
-const componentSet_t EntityManager::getComponents(Entity *e) {
+const componentSet_t EntityManager::getComponents(const Entity &e) {
 	entityComponents.clear();
 
 	for(componentsTypeMap_t::iterator it = componentsByType.begin(); it != componentsByType.end(); it++) {
 		componentMap_t components = it->second;
-		componentMap_t::iterator ct = components.find(e->getId());
+		componentMap_t::iterator ct = components.find(e.getId());
 
 		if(ct != components.end()) {
 			entityComponents.insert(ct->second);

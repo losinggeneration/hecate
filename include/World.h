@@ -20,21 +20,21 @@ public:
 	World();
 	virtual ~World();
 
-	GroupManager *getGroupManager();
-	SystemManager *getSystemManager();
-	EntityManager *getEntityManager();
-	TagManager *getTagManager();
+	GroupManager *getGroupManager() const;
+	SystemManager *getSystemManager() const;
+	EntityManager *getEntityManager() const;
+	TagManager *getTagManager() const;
 
 	void setManager(Manager *manager);
-	template<class T> T *getManager(T *managerType);
+	template<class T> T *getManager(const T &managerType) const;
 
-	int getDelta();
+	int getDelta() const;
 	void setDelta(int delta);
 
 	void deleteEntity(Entity *e);
 	void refreshEntity(Entity *e);
 	Entity *createEntity();
-	Entity *getEntity(int entityId);
+	Entity *getEntity(int entityId) const;
 
 	void loopStart();
 

@@ -17,11 +17,11 @@ Entity::Entity(World *world, int id) : world(world), id(id), entityManager(world
 Entity::~Entity() {
 }
 
-int Entity::getId() {
+int Entity::getId() const {
 	return id;
 }
 
-long Entity::getUniqueId() {
+long Entity::getUniqueId() const {
 	return uniqueId;
 }
 
@@ -37,20 +37,20 @@ void Entity::removeComponent(const ComponentType &type) {
 	entityManager->removeComponent(this, type);
 }
 
-bool Entity::isActive() {
+bool Entity::isActive() const {
 	return entityManager->isActive(id);
 }
 
-Component *Entity::getComponent(const ComponentType &type) {
-	return entityManager->getComponent(this, type);
+Component *Entity::getComponent(const ComponentType &type) const {
+	return entityManager->getComponent(*this, type);
 }
 
-template<class T> T *Entity::getComponent(T *type) {
+template<class T> T *Entity::getComponent(const T &type) const {
 	return dynamic_cast<T>(getComponent(ComponentTypeManager::getTypeFor(type)));
 }
 
-componentSet_t Entity::getComponents() {
-	return entityManager->getComponents(this);
+componentSet_t Entity::getComponents() const {
+	return entityManager->getComponents(*this);
 }
 
 void Entity::refresh() {
@@ -69,7 +69,7 @@ void Entity::setTag(std::string tag) {
 	world->getTagManager()->registerTag(tag, this);
 }
 
-std::string Entity::toString() {
+std::string Entity::toString() const {
 	std::stringstream ss;
 	std::string s;
 	ss << "Entity[" << id << "]";
@@ -81,7 +81,7 @@ void Entity::setUniqueId(long uniqueId) {
 	this->uniqueId = uniqueId;
 }
 
-long Entity::getTypeBits() {
+long Entity::getTypeBits() const {
 	return typeBits;
 }
 
@@ -97,7 +97,7 @@ void Entity::setTypeBits(long bits) {
 	typeBits = bits;
 }
 
-long Entity::getSystemBits() {
+long Entity::getSystemBits() const {
 	return systemBits;
 }
 
