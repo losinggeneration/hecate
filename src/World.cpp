@@ -92,7 +92,7 @@ void World::loopStart() {
 		for(std::set<Entity*>::iterator it = deleted.begin(); it != deleted.end(); it++) {
 			groupManager->remove(**it);
 			entityManager->remove(*it);
-			tagManager->remove(*it);
+			tagManager->remove(**it);
 		}
 		deleted.clear();
 	}

@@ -66,7 +66,7 @@ void Entity::setGroup(std::string group) {
 }
 
 void Entity::setTag(std::string tag) {
-	world->getTagManager()->registerTag(tag, this);
+	world->getTagManager()->registerTag(tag, *this);
 }
 
 std::string Entity::toString() const {
