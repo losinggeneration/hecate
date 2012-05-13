@@ -41,9 +41,7 @@ TagManager *World::getTagManager() const {
 }
 
 void World::setManager(Manager *manager) {
-	if(managers.find(manager) == managers.end()) {
-		managers.insert(manager);
-	}
+	managers.insert(manager);
 }
 
 template<class T> T *World::getManager(const T &managerType) const {
@@ -64,9 +62,7 @@ void World::setDelta(int delta) {
 }
 
 void World::deleteEntity(Entity *e) {
-	if(deleted.find(e) == deleted.end()) {
-		deleted.insert(e);
-	}
+	deleted.insert(e);
 }
 
 void World::refreshEntity(Entity *e) {
