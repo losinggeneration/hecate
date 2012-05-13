@@ -13,11 +13,7 @@ SystemManager::~SystemManager() {
 
 EntitySystem *SystemManager::setSystem(EntitySystem *system) {
 	system->setWorld(world);
-
-	if(sets.find(system) != sets.end()) {
-		sets.insert(system);
-	}
-
+	sets.insert(system);
 	system->setSystemBit(SystemBitManager::getBitFor(system));
 
 	return system;
