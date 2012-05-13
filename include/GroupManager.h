@@ -26,6 +26,7 @@ public:
 private:
 	typedef std::map<std::string, entitySet_t> entityGroupMap_t;
 	typedef std::map<int, std::string> groupMap_t;
+
 	World *world;
 	entitySet_t EMPTY_SET;
 	entityGroupMap_t entitiesByGroup;
