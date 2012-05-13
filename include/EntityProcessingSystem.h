@@ -8,7 +8,7 @@ namespace hecate {
 
 class EntityProcessingSystem : public EntitySystem {
 public:
-	template<class T>EntityProcessingSystem(T *requiredType, std::set<T*>otherTypes);
+	template<class T> EntityProcessingSystem(T *requiredType, std::set<T*> otherTypes);
 
 protected:
 	virtual void process(Entity *e) = 0;
