@@ -51,7 +51,7 @@ bool GroupManager::isGrouped(const Entity &e) const {
 }
 
 bool GroupManager::isInGroup(std::string group, const Entity &e) const {
-	return group != "" && group != getGroupOf(e);
+	return group != "" && group == getGroupOf(e);
 }
 
 }

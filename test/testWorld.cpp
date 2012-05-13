@@ -1,6 +1,5 @@
 #include <boost/test/unit_test.hpp>
 #include "EntityManager.h"
-#include "GroupManager.h"
 #include "SystemManager.h"
 #include "TagManager.h"
 #include "World.h"
@@ -9,7 +8,7 @@ using namespace hecate;
 
 BOOST_AUTO_TEST_SUITE(World_Test)
 
-BOOST_AUTO_TEST_CASE(EntityManager_test)
+BOOST_AUTO_TEST_CASE(EntityManager_Case)
 {
 	World w;
 	EntityManager *em = w.getEntityManager();
@@ -32,19 +31,13 @@ BOOST_AUTO_TEST_CASE(EntityManager_test)
 	BOOST_CHECK(em->getTotalRemoved() == 1);
 }
 
-BOOST_AUTO_TEST_CASE(GroupManager_test)
-{
-	World w;
-	GroupManager *gm = w.getGroupManager();
-}
-
-BOOST_AUTO_TEST_CASE(SystemManager_test)
+BOOST_AUTO_TEST_CASE(SystemManager_Case)
 {
 	World w;
 	SystemManager *sm = w.getSystemManager();
 }
 
-BOOST_AUTO_TEST_CASE(TagManager_test)
+BOOST_AUTO_TEST_CASE(TagManager_Case)
 {
 	World w;
 	TagManager *tm = w.getTagManager();
