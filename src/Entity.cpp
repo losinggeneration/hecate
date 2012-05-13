@@ -62,7 +62,7 @@ void Entity::deleteEntity() {
 }
 
 void Entity::setGroup(std::string group) {
-	world->getGroupManager()->set(group, this);
+	world->getGroupManager()->set(group, *this);
 }
 
 void Entity::setTag(std::string tag) {
