@@ -4,11 +4,15 @@ add_library(hecate
 	Component.cpp
 	ComponentType.cpp
 	ComponentTypeManager.cpp
+	DelayedEntityProcessingSystem.cpp
+	DelayedEntitySystem.cpp
 	Entity.cpp
 	EntityManager.cpp
 	EntityProcessingSystem.cpp
 	EntitySystem.cpp
 	GroupManager.cpp
+	IntervalEntityProcessingSystem.cpp
+	IntervalEntitySystem.cpp
 	SystemBitManager.cpp
 	SystemManager.cpp
 	TagManager.cpp
