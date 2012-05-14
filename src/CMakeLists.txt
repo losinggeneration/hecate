@@ -1,6 +1,6 @@
-include_directories(${CMAKE_SOURCE_DIR}/include)
+include_directories(${CMAKE_SOURCE_DIR}/include/hecate)
 
-add_library(hecate
+set(HECATE_FILES
 	Component.cpp
 	ComponentType.cpp
 	ComponentTypeManager.cpp
@@ -18,3 +18,39 @@ add_library(hecate
 	TagManager.cpp
 	World.cpp
 )
+
+add_library(hecate_static STATIC
+	${HECATE_FILES}
+)
+
+install(
+	TARGETS hecate_static
+	RUNTIME DESTINATION bin
+	LIBRARY DESTINATION lib
+	ARCHIVE DESTINATION lib
+)
+
+# Rename the hecate_static output
+set_target_properties(hecate_static PROPERTIES OUTPUT_NAME "hecate")
+# Tell it where the default prefix should be
+set_target_properties(hecate_static PROPERTIES PREFIX "lib")
+# And make sure for <=2.6 it doesn't clober the shared library files
+set_target_properties(hecate_static PROPERTIES CLEAN_DIRECT_OUTPUT 1)
+
+# Shared library
+if(BUILD_SHARED_LIBRARY)
+
+	add_library(hecate SHARED
+		${HECATE_FILES}
+	)
+
+	# And make sure for <=2.6 it doesn't clober the static library files
+	set_target_properties(hecate PROPERTIES CLEAN_DIRECT_OUTPUT 1)
+
+	install(
+		TARGETS hecate
+		RUNTIME DESTINATION bin
+		LIBRARY DESTINATION lib
+		ARCHIVE DESTINATION lib
+	)
+endif(BUILD_SHARED_LIBRARY)
