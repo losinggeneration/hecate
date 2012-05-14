@@ -1,9 +1,7 @@
 #ifndef WORLD_H
 #define WORLD_H
 
-#include <map>
 #include <set>
-#include <string>
 #include "Types.h"
 
 namespace hecate {

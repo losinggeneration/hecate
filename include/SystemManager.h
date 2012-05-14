@@ -14,7 +14,6 @@ class World;
 class SystemManager {
 public:
 	SystemManager(World *world);
-	~SystemManager();
 
 	EntitySystem *setSystem(EntitySystem *system);
 	template<class T> T *getSystem(T *type);

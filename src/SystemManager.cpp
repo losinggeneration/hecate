@@ -8,9 +8,6 @@ namespace hecate {
 SystemManager::SystemManager(World *world) : world(world) {
 }
 
-SystemManager::~SystemManager() {
-}
-
 EntitySystem *SystemManager::setSystem(EntitySystem *system) {
 	system->setWorld(world);
 	sets.insert(system);
