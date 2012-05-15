@@ -1,7 +1,6 @@
 include_directories(${CMAKE_SOURCE_DIR}/include/hecate)
 
 set(HECATE_FILES
-	Component.cpp
 	ComponentType.cpp
 	ComponentTypeManager.cpp
 	DelayedEntityProcessingSystem.cpp
