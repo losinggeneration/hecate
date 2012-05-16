@@ -39,7 +39,7 @@ namespace hecate {
 template<class T>
 ComponentMapper<T>::ComponentMapper(const T *type, World *world) {
 	em = world->getEntityManager();
-	type = ComponentTypeManager::getTypeFor(type);
+	this->type = ComponentTypeManager::getTypeFor(type);
 	classType = type;
 }
 
