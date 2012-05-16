@@ -22,6 +22,8 @@ add_library(hecate_static STATIC
 	${HECATE_FILES}
 )
 
+set_target_properties(hecate_static PROPERTIES VERSION ${HECATE_VERSION})
+
 install(
 	TARGETS hecate_static
 	RUNTIME DESTINATION bin
@@ -42,6 +44,8 @@ if(BUILD_SHARED_LIBRARY)
 	add_library(hecate SHARED
 		${HECATE_FILES}
 	)
+
+	set_target_properties(hecate PROPERTIES VERSION ${HECATE_VERSION})
 
 	# And make sure for <=2.6 it doesn't clober the static library files
 	set_target_properties(hecate PROPERTIES CLEAN_DIRECT_OUTPUT 1)
