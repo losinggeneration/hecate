@@ -4,6 +4,7 @@ include_directories(${CMAKE_SOURCE_DIR}/include/hecate)
 
 set(HECATE_TEST_SRCS
 	testRunner.cpp
+	testComponentMapper.cpp
 	testGroupManager.cpp
 	testWorld.cpp
 )
