@@ -27,8 +27,8 @@
  * or implied, of Harley Laue.
  */
 
-#ifndef COMPONENT_H
-#define COMPONENT_H
+#ifndef HECATE_COMPONENT_H
+#define HECATE_COMPONENT_H
 
 namespace hecate {
 
@@ -37,4 +37,4 @@ class Component {
 
 }
 
-#endif // COMPONENT_H
+#endif

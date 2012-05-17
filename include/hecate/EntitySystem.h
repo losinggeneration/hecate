@@ -27,8 +27,8 @@
  * or implied, of Harley Laue.
  */
 
-#ifndef ENTITYSYSTEM_H
-#define ENTITYSYSTEM_H
+#ifndef HECATE_ENTITYSYSTEM_H
+#define HECATE_ENTITYSYSTEM_H
 
 #include <set>
 

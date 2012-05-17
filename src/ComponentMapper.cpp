@@ -48,5 +48,4 @@ T *ComponentMapper<T>::get(const Entity &e) {
 	return dynamic_cast<T>(em->getComponent(e, type));
 }
 
-
 }

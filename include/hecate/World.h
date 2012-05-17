@@ -27,8 +27,8 @@
  * or implied, of Harley Laue.
  */
 
-#ifndef WORLD_H
-#define WORLD_H
+#ifndef HECATE_WORLD_H
+#define HECATE_WORLD_H
 
 #include <set>
 #include "Types.h"

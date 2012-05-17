@@ -68,4 +68,3 @@ void TagManager::remove(const Entity &e) {
 }
 
 }
-

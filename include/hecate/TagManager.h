@@ -27,8 +27,8 @@
  * or implied, of Harley Laue.
  */
 
-#ifndef TAGMANAGER_H
-#define TAGMANAGER_H
+#ifndef HECATE_TAGMANAGER_H
+#define HECATE_TAGMANAGER_H
 
 #include <map>
 #include <string>
@@ -60,4 +60,4 @@ private:
 
 }
 
-#endif // TAGMANAGER_H
+#endif

@@ -56,18 +56,23 @@ void EntitySystem::setSystemBit(long bit) {
 	systemBit = bit;
 }
 
+/// No default implementation
 void EntitySystem::begin() {
 }
 
+/// No default implementation
 void EntitySystem::end() {
 }
 
+/// No default implementation
 void EntitySystem::initialize() {
 }
 
+/// No default implementation
 void EntitySystem::added(Entity *e) {
 }
 
+/// No default implementation
 void EntitySystem::removed(Entity *e) {
 }
 

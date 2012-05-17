@@ -27,8 +27,8 @@
  * or implied, of Harley Laue.
  */
 
-#ifndef GROUPMANAGER_H
-#define GROUPMANAGER_H
+#ifndef HECATE_GROUPMANAGER_H
+#define HECATE_GROUPMANAGER_H
 
 #include <map>
 #include <set>
@@ -64,4 +64,4 @@ private:
 
 }
 
-#endif // GROUPMANAGER_H
+#endif

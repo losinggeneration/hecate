@@ -27,8 +27,8 @@
  * or implied, of Harley Laue.
  */
 
-#ifndef SYSTEMMANAGER_H
-#define SYSTEMMANAGER_H
+#ifndef HECATE_SYSTEMMANAGER_H
+#define HECATE_SYSTEMMANAGER_H
 
 #include <map>
 #include <set>
@@ -57,4 +57,4 @@ private:
 
 }
 
-#endif // SYSTEMMANAGER_H
+#endif

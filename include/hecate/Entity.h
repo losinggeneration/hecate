@@ -27,8 +27,8 @@
  * or implied, of Harley Laue.
  */
 
-#ifndef ENTITY_H
-#define ENTITY_H
+#ifndef HECATE_ENTITY_H
+#define HECATE_ENTITY_H
 
 #include <set>
 #include <string>
@@ -95,4 +95,4 @@ private:
 
 }
 
-#endif // ENTITY_H
+#endif

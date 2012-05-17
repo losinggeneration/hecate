@@ -49,7 +49,6 @@ private:
 	ComponentType type;
 	EntityManager *em;
 	T *classType;
-
 };
 
 }

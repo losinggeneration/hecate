@@ -27,8 +27,8 @@
  * or implied, of Harley Laue.
  */
 
-#ifndef ENTITYMANAGER_H
-#define ENTITYMANAGER_H
+#ifndef HECATE_ENTITYMANAGER_H
+#define HECATE_ENTITYMANAGER_H
 
 #include <map>
 #include <set>
@@ -93,4 +93,4 @@ private:
 
 }
 
-#endif // ENTITYMANAGER_H
+#endif
