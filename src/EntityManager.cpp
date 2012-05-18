@@ -39,7 +39,8 @@
 namespace hecate {
 
 EntityManager::EntityManager(World *world) : world(world) {
-	count = totalCreated = totalRemoved = nextAvailableId = 0;
+	count = totalCreated = totalRemoved = 0;
+	nextAvailableId = 1;
 }
 
 EntityManager::~EntityManager() {
@@ -139,9 +140,7 @@ void EntityManager::refresh(Entity *e) {
 void EntityManager::addComponent(Entity *e, Component *component) {
 	ComponentType type = ComponentTypeManager::getTypeFor(*component);
 
-	componentMap_t components = componentsByType[type.getId()];
-
-	components[e->getId()] = component;
+	componentsByType[type.getId()][e->getId()] = component;
 
 	e->addTypeBit(type.getBit());
 }
@@ -149,14 +148,13 @@ void EntityManager::addComponent(Entity *e, Component *component) {
 void EntityManager::removeComponent(Entity *e, Component *component) {
 	ComponentType type = ComponentTypeManager::getTypeFor(*component);
 	removeComponent(e, type);
-
 }
 
 void EntityManager::removeComponent(Entity *e, const ComponentType &type) {
 	componentsTypeMap_t::iterator it = componentsByType.find(type.getId());
 
 	if(it != componentsByType.end()) {
-		componentMap_t components = componentsByType[type.getId()];
+		componentMap_t &components = componentsByType[type.getId()];
 		componentMap_t::iterator ct = components.find(e->getId());
 		if(ct != components.end()) {
 			components.erase(ct);
@@ -169,7 +167,7 @@ Component *EntityManager::getComponent(const Entity &e, const ComponentType &typ
 	componentsTypeMap_t::iterator it = componentsByType.find(type.getId());
 
 	if(it != componentsByType.end()) {
-		componentMap_t components = componentsByType[type.getId()];
+		componentMap_t &components = componentsByType[type.getId()];
 		componentMap_t::iterator ct = components.find(e.getId());
 
 		if(ct != components.end()) {
@@ -184,7 +182,7 @@ const componentSet_t EntityManager::getComponents(const Entity &e) {
 	entityComponents.clear();
 
 	for(componentsTypeMap_t::iterator it = componentsByType.begin(); it != componentsByType.end(); it++) {
-		componentMap_t components = it->second;
+		componentMap_t &components = it->second;
 		componentMap_t::iterator ct = components.find(e.getId());
 
 		if(ct != components.end()) {
@@ -197,7 +195,7 @@ const componentSet_t EntityManager::getComponents(const Entity &e) {
 
 void EntityManager::removeComponentsOfEntity(Entity *e) {
 	for(componentsTypeMap_t::iterator it = componentsByType.begin(); it != componentsByType.end(); it++) {
-		componentMap_t components = it->second;
+		componentMap_t &components = it->second;
 
 		componentMap_t::iterator ct = components.find(e->getId());
 		if(ct != components.end()) {
