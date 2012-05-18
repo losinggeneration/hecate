@@ -30,20 +30,29 @@
 #ifndef HECATE_ENTITYPROCESSINGSYSTEM_H
 #define HECATE_ENTITYPROCESSINGSYSTEM_H
 
+#include "Component.h"
 #include "EntitySystem.h"
 #include "Types.h"
 
 namespace hecate {
 
+template<class C=Component>
 class EntityProcessingSystem : public EntitySystem {
 public:
-	template<class T> EntityProcessingSystem(T *requiredType, std::set<T*> otherTypes);
+	EntityProcessingSystem(C *requiredType, std::set<C*> otherTypes) : EntitySystem(getMergedTypes(requiredType, otherTypes)) {};
 
 protected:
 	virtual void process(Entity *e) = 0;
 	// Do not override!
-	void processEntities(entitySet_t entities);
-	bool checkProcessing();
+	void processEntities(entitySet_t entities) {
+		for(entitySet_t::iterator it = entities.begin(); it != entities.end(); it++) {
+			process((*it));
+		}
+	}
+
+	inline bool checkProcessing() {
+		return true;
+	}
 };
 
 }
