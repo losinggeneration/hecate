@@ -74,10 +74,6 @@ Component *Entity::getComponent(const ComponentType &type) const {
 	return entityManager->getComponent(*this, type);
 }
 
-template<class T> T *Entity::getComponent(const T &type) const {
-	return dynamic_cast<T>(getComponent(ComponentTypeManager::getTypeFor(type)));
-}
-
 componentSet_t Entity::getComponents() const {
 	return entityManager->getComponents(*this);
 }

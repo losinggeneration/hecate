@@ -31,6 +31,9 @@
 #define HECATE_COMPONENTMAPPER_H
 
 #include "ComponentType.h"
+#include "ComponentTypeManager.h"
+#include "EntityManager.h"
+#include "World.h"
 
 namespace hecate {
 
@@ -42,8 +45,15 @@ class World;
 template<class T>
 class ComponentMapper {
 public:
-	ComponentMapper(const T *t, World *world);
-	T *get(const Entity &e);
+	ComponentMapper(const T *t, World *world) {
+		em = world->getEntityManager();
+		type = ComponentTypeManager::getTypeFor(*t);
+		classType = const_cast<T*>(t);
+	}
+
+	T *get(const Entity &e) {
+		return dynamic_cast<T*>(em->getComponent(e, type));
+	}
 
 private:
 	ComponentType type;

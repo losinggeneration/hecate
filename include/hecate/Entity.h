@@ -33,6 +33,7 @@
 #include <set>
 #include <string>
 
+#include "ComponentTypeManager.h"
 #include "Types.h"
 
 namespace hecate {
@@ -54,7 +55,9 @@ public:
 	bool isActive() const;
 
 	Component *getComponent(const ComponentType &type) const;
-	template<class T> T *getComponent(const T &type) const;
+	template<class T> T *getComponent(const T &type) const {
+		return dynamic_cast<T*>(getComponent(ComponentTypeManager::getTypeFor(type)));
+	}
 
 	componentSet_t getComponents() const;
 
