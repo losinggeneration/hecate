@@ -33,6 +33,12 @@
 namespace hecate {
 
 class Component {
+public:
+	virtual ~Component() {}
+
+protected:
+	// Disallow direct use of Component
+	Component() {};
 };
 
 }
