@@ -81,13 +81,16 @@ long EntityManager::getTotalRemoved() const {
 
 Entity *EntityManager::create() {
 	// Reuse an entity over creating a new one
-	Entity *e = *removedAndAvailable.end();
+	Entity *e = NULL;
 
-	if(e == NULL) {
-		e = new Entity(world, nextAvailableId++);
+	if(!removedAndAvailable.empty()) {
+		entitySet_t::iterator it = removedAndAvailable.begin();
+		e = *it;
+		e->reset();
+		removedAndAvailable.erase(it);
 	}
 	else {
-		e->reset();
+		e = new Entity(world, nextAvailableId++);
 	}
 
 	activeEntities.insert(e);
