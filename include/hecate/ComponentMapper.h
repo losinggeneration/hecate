@@ -48,7 +48,6 @@ public:
 	ComponentMapper(const T *t, World *world) {
 		em = world->getEntityManager();
 		type = ComponentTypeManager::getTypeFor(*t);
-		classType = const_cast<T*>(t);
 	}
 
 	T *get(const Entity &e) {
@@ -58,7 +57,6 @@ public:
 private:
 	ComponentType type;
 	EntityManager *em;
-	T *classType;
 };
 
 }
