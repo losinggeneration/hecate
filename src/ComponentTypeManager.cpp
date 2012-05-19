@@ -35,14 +35,13 @@
 namespace hecate {
 
 ComponentType ComponentTypeManager::getTypeFor(const Component &c) {
-	static std::map<Component*, ComponentType> componentTypes;
+	static std::map<std::string, ComponentType> componentTypes;
 
-	Component *com = const_cast<Component*>(&c);
-	std::map<Component*, ComponentType>::iterator it = componentTypes.find(com);
+	std::map<std::string, ComponentType>::iterator it = componentTypes.find(c.getType());
 
 	if(it == componentTypes.end()) {
 			ComponentType type;
-			componentTypes[com] = type;
+			componentTypes[c.getType()] = type;
 			return type;
 	}
 

@@ -10,9 +10,16 @@ using namespace hecate;
 using namespace std;
 
 class C1 : public Component {
+public:
+	C1() {
+		setType(this);
+	}
 };
-
 class C2 : public Component {
+public:
+	C2() {
+		setType(this);
+	}
 };
 
 BOOST_AUTO_TEST_SUITE(ComponentMapper_Test)
@@ -26,7 +33,7 @@ BOOST_AUTO_TEST_CASE(ComponentMapper_Constructor_Case) {
 	e1->addComponent(&c2);
 	e2->addComponent(&c1);
 	ComponentMapper<C1> cm1(C1(), &w);
-	ComponentMapper<C2> cm2(C2(), &w);
+	ComponentMapper<C2> cm2(c2, &w);
 	Component *c1a = e1->getComponent(c1);
 
 	// Check that c1 is correctly returned

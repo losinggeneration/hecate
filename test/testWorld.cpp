@@ -10,9 +10,17 @@
 using namespace hecate;
 
 class C1 : public Component {
+public:
+	C1() {
+		setType(this);
+	}
 };
 
 class C2 : public Component {
+public:
+	C2() {
+		setType(this);
+	}
 };
 
 BOOST_AUTO_TEST_SUITE(World_Test)

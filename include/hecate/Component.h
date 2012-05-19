@@ -30,15 +30,41 @@
 #ifndef HECATE_COMPONENT_H
 #define HECATE_COMPONENT_H
 
+#include <string>
+#include <stdexcept>
+
+#ifndef NO_RTTI
+#include <typeinfo>
+#endif
+
 namespace hecate {
 
 class Component {
 public:
+	std::string getType() const {
+		return type;
+	}
+
 	virtual ~Component() {}
 
 protected:
-	// Disallow direct use of Component
-	Component() {};
+	Component() {}
+
+#ifndef NO_RTTI
+	template<class T>
+	void setType(const T &t) {
+		this->type = typeid(T).name();
+	}
+#endif
+	void setType(std::string type = "") {
+		if(type.empty() || type == "") {
+			throw std::logic_error("type must be a (unique) string");
+		}
+		this->type = type;
+	}
+
+private:
+	std::string type;
 };
 
 }

@@ -30,11 +30,10 @@
 #ifndef HECATE_COMPONENTTYPEMANAGER_H
 #define HECATE_COMPONENTTYPEMANAGER_H
 
+#include "Component.h"
 #include "ComponentType.h"
 
 namespace hecate {
-
-class Component;
 
 class ComponentTypeManager {
 public:

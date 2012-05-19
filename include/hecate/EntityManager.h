@@ -41,6 +41,7 @@ namespace hecate {
 
 class Entity;
 class Component;
+template<class T> class ComponentMapper;
 class ComponentType;
 class World;
 
