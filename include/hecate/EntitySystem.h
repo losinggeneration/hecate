@@ -54,7 +54,7 @@ public:
 	void process();
 
 protected:
-	void setSystemBit(long bit);
+	void setSystemBit(uint64_t bit);
 	void begin();
 	void end();
 	virtual void processEntities(std::set<Entity *> entities) = 0;
@@ -80,8 +80,8 @@ protected:
 private:
 	void remove(Entity *e);
 
-	long systemBit;
-	long typeFlags;
+	uint64_t systemBit;
+	uint64_t typeFlags;
 	std::set<Entity*> actives;
 	friend class SystemManager;
 	friend class EntityManager;

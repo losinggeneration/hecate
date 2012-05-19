@@ -45,7 +45,7 @@ void EntitySystem::process() {
 	}
 }
 
-void EntitySystem::setSystemBit(long bit) {
+void EntitySystem::setSystemBit(uint64_t bit) {
 	systemBit = bit;
 }
 

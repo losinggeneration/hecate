@@ -40,7 +40,7 @@ class ComponentTypeManager {
 public:
 	static ComponentType getTypeFor(const Component &c);
 	static int getId(const Component &c);
-	static long getSystemBit(const Component &c);
+	static uint64_t getSystemBit(const Component &c);
 };
 
 }

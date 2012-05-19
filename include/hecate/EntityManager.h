@@ -33,6 +33,7 @@
 #include <map>
 #include <set>
 #include <string>
+#include <stdint.h>
 
 #include "Types.h"
 
@@ -80,7 +81,7 @@ private:
 	entitySet_t removedAndAvailable;
 	int nextAvailableId;
 	int count;
-	long uniqueEntityId;
+	uint64_t uniqueEntityId;
 	long totalCreated;
 	long totalRemoved;
 

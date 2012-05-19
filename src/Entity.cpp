@@ -106,35 +106,35 @@ void Entity::setUniqueId(long uniqueId) {
 	this->uniqueId = uniqueId;
 }
 
-long Entity::getTypeBits() const {
+uint64_t Entity::getTypeBits() const {
 	return typeBits;
 }
 
-void Entity::addTypeBit(long bit) {
+void Entity::addTypeBit(uint64_t bit) {
 	typeBits |= bit;
 }
 
-void Entity::removeTypeBit(long bit) {
+void Entity::removeTypeBit(uint64_t bit) {
 	typeBits &= ~bit;
 }
 
-void Entity::setTypeBits(long bits) {
+void Entity::setTypeBits(uint64_t bits) {
 	typeBits = bits;
 }
 
-long Entity::getSystemBits() const {
+uint64_t Entity::getSystemBits() const {
 	return systemBits;
 }
 
-void Entity::addSystemBit(long bit) {
+void Entity::addSystemBit(uint64_t bit) {
 	systemBits |= bit;
 }
 
-void Entity::removeSystemBit(long bit) {
+void Entity::removeSystemBit(uint64_t bit) {
 	systemBits &= ~bit;
 }
 
-void Entity::setSystemBits(long systemBits) {
+void Entity::setSystemBits(uint64_t systemBits) {
 	this->systemBits = systemBits;
 }
 

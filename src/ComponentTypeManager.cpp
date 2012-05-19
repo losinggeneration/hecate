@@ -53,7 +53,7 @@ int ComponentTypeManager::getId(const Component &c) {
 	return getTypeFor(c).getId();
 }
 
-long ComponentTypeManager::getSystemBit(const Component &c) {
+uint64_t ComponentTypeManager::getSystemBit(const Component &c) {
 	return getTypeFor(c).getBit();
 }
 

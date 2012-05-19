@@ -73,14 +73,14 @@ protected:
     Entity(World *world, int id);
 	~Entity();
 	void setUniqueId(long uniqueId);
-	long getTypeBits()const ;
-	void addTypeBit(long bit);
-	void removeTypeBit(long bit);
-	void setTypeBits(long typeBits);
-	long getSystemBits() const;
-	void addSystemBit(long bit);
-	void removeSystemBit(long bit);
-	void setSystemBits(long systemBits);
+	uint64_t getTypeBits()const ;
+	void addTypeBit(uint64_t bit);
+	void removeTypeBit(uint64_t bit);
+	void setTypeBits(uint64_t typeBits);
+	uint64_t getSystemBits() const;
+	void addSystemBit(uint64_t bit);
+	void removeSystemBit(uint64_t bit);
+	void setSystemBits(uint64_t systemBits);
 	void reset();
 	friend class World;
 	friend class EntityManager;
@@ -89,8 +89,8 @@ protected:
 private:
 	int id;
 	long uniqueId;
-	long typeBits;
-	long systemBits;
+	uint64_t typeBits;
+	uint64_t systemBits;
 
 	World *world;
 	EntityManager *entityManager;

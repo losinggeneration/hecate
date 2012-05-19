@@ -47,7 +47,7 @@ int ComponentType::getId() const {
 	return id;
 }
 
-long ComponentType::getBit() const {
+uint64_t ComponentType::getBit() const {
 	return bit;
 }
 

@@ -30,6 +30,8 @@
 #ifndef HECTATE_COMPONENTTYPE_H
 #define HECTATE_COMPONENTTYPE_H
 
+#include <stdint.h>
+
 namespace hecate {
 
 class ComponentType {
@@ -37,13 +39,13 @@ public:
 	ComponentType();
 
 	int getId() const;
-	long getBit() const;
+	uint64_t getBit() const;
 
 private:
 	void init();
 
 	int id;
-	long bit;
+	uint64_t bit;
 };
 
 }
