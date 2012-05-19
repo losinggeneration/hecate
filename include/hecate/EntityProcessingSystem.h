@@ -36,23 +36,17 @@
 
 namespace hecate {
 
-template<class C=Component>
 class EntityProcessingSystem : public EntitySystem {
 public:
-	EntityProcessingSystem(C *requiredType, std::set<C*> otherTypes) : EntitySystem(getMergedTypes(requiredType, otherTypes)) {};
+	EntityProcessingSystem();
 
 protected:
+	void setupRequiredTypes(Component *requiredType, std::set<Component *> otherTypes);
+
 	virtual void process(Entity *e) = 0;
 	// Do not override!
-	void processEntities(entitySet_t entities) {
-		for(entitySet_t::iterator it = entities.begin(); it != entities.end(); it++) {
-			process((*it));
-		}
-	}
-
-	bool checkProcessing() {
-		return true;
-	}
+	void processEntities(entitySet_t entities);
+	bool checkProcessing();
 };
 
 }

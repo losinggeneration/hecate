@@ -43,17 +43,16 @@ class EntitySystem {
 public:
 	EntitySystem();
 
-	template<class T> EntitySystem(std::set<T*> types) {
+	// Do not override!
+	void process();
+
+protected:
+	template<class T>void setupTypes(std::set<T*> types) {
 		for(typename std::set<T*>::iterator it = types.begin(); it != types.end(); it++) {
 			ComponentType ct = ComponentTypeManager::getTypeFor(**it);
 			typeFlags |= ct.getBit();
 		}
 	}
-
-	// Do not override!
-	void process();
-
-protected:
 	void setSystemBit(uint64_t bit);
 	void begin();
 	void end();

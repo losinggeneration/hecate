@@ -45,9 +45,9 @@ class World;
 template<class T>
 class ComponentMapper {
 public:
-	ComponentMapper(const T *t, World *world) {
+	ComponentMapper(const T &t, World *world) {
 		em = world->getEntityManager();
-		type = ComponentTypeManager::getTypeFor(*t);
+		type = ComponentTypeManager::getTypeFor(t);
 	}
 
 	T *get(const Entity &e) {
