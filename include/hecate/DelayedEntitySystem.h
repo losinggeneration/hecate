@@ -30,28 +30,67 @@
 #ifndef HECATE_DELAYEDENTITYSYSTEM_H
 #define HECATE_DELAYEDENTITYSYSTEM_H
 
+#include "Component.h"
 #include "EntitySystem.h"
 #include "Types.h"
+#include "World.h"
 
 namespace hecate {
 
 class Entity;
 
+template<class C=Component>
 class DelayedEntitySystem : public EntitySystem {
 public:
-	template<class T> DelayedEntitySystem(std::set<T*> types);
+	DelayedEntitySystem(std::set<C*> types) : EntitySystem(types) {
+	}
 
-	void startDelayedRun(int delay);
-	int getInitialTimeDelay() const;
-	int getRemainingTimeUntilProcessing() const;
-	bool isRunning() const;
-	void stop();
+	void startDelayedRun(int delay) {
+		this->delay = delay;
+		this->acc = 0;
+		running = true;
+	}
+
+	int getInitialTimeDelay() const {
+		return delay;
+	}
+
+	int getRemainingTimeUntilProcessing() const {
+		if(running) {
+			return delay - acc;
+		}
+
+		return 0;
+	}
+
+	bool isRunning() const {
+		return running;
+	}
+
+	void stop() {
+		running = false;
+		acc = 0;
+	}
 
 protected:
 	// Do not override
-	bool checkProcessing();
+	bool checkProcessing() {
+		if(running) {
+			acc += world->getDelta();
+
+			if(acc >= delay) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	// Do not override
-	void processEntities(entitySet_t entities);
+	void processEntities(entitySet_t entities) {
+		processEntities(entities, acc);
+	}
+
 	virtual void processEntities(entitySet_t entities, int accumulatedDelta) = 0;
 
 private:

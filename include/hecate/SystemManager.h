@@ -45,7 +45,14 @@ public:
 	SystemManager(World *world);
 
 	EntitySystem *setSystem(EntitySystem *system);
-	template<class T> T *getSystem(T *type);
+	template<class T> T *getSystem(T *type) {
+		entitySystemSet_t::iterator it = sets.find(type);
+		if(it != sets.end()) {
+			return dynamic_cast<T>(*it);
+		}
+
+		return NULL;
+	}
 	entitySystemSet_t getSystems();
 
 	void initializeAll();

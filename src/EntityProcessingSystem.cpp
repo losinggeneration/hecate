@@ -26,3 +26,6 @@
  * authors and should not be interpreted as representing official policies, either expressed
  * or implied, of Harley Laue.
  */
+
+// Included just to make sure things compile correctly until all the tests are created for this
+#include "EntityProcessingSystem.h"

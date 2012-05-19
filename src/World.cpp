@@ -73,15 +73,6 @@ void World::setManager(Manager *manager) {
 	managers.insert(manager);
 }
 
-template<class T> T *World::getManager(const T &managerType) const {
-	managerSet_t::iterator it = managers.find(managerType);
-	if(it != managers.end()) {
-		return dynamic_cast<T>(*it);
-	}
-
-	return NULL;
-}
-
 int World::getDelta() const {
 	return delta;
 }

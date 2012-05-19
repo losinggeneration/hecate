@@ -37,13 +37,6 @@ namespace hecate {
 EntitySystem::EntitySystem() {
 }
 
-template<class T> EntitySystem::EntitySystem(std::set<T*> types) {
-	for(typename std::set<T*>::iterator it = types.begin(); it != types.end(); it++) {
-		ComponentType ct = ComponentTypeManager::getTypeFor(*it);
-		typeFlags |= ct.getBit();
-	}
-}
-
 void EntitySystem::process() {
 	if(checkProcessing()) {
 		begin();
@@ -91,15 +84,6 @@ void EntitySystem::change(Entity *e) {
 
 void EntitySystem::setWorld(World *world) {
 	this->world = world;
-}
-
-template<class T> std::set<T*> EntitySystem::getMergedTypes(T *requiredType, std::set<T*> otherTypes) {
-	std::set<T*> types;
-
-	types.insert(requiredType);
-	types.insert(otherTypes.begin(), otherTypes.end());
-
-	return types;
 }
 
 void EntitySystem::remove(Entity *e) {

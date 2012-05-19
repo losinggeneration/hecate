@@ -30,6 +30,7 @@
 #ifndef HECATE_INTERVALENTITYPROCESSINGSYSTEM_H
 #define HECATE_INTERVALENTITYPROCESSINGSYSTEM_H
 
+#include "Component.h"
 #include "IntervalEntitySystem.h"
 #include "Types.h"
 
@@ -37,13 +38,20 @@ namespace hecate {
 
 class Entity;
 
-class IntervalEntityProcessingSystem : public IntervalEntitySystem {
+template<class C=Component>
+class IntervalEntityProcessingSystem : public IntervalEntitySystem<C> {
 public:
-	template<class T> IntervalEntityProcessingSystem(int interval, T *requiredType, std::set<T*> otherTypes);
+	IntervalEntityProcessingSystem(int interval, C *requiredType, std::set<C*> otherTypes) :
+	IntervalEntitySystem<C>(getMergedTypes(interval, requiredType, otherTypes)) {
+	}
 
 protected:
 	virtual void process(Entity *e, int accumulatedDelta) = 0;
-	void processEntities(entitySet_t entities, int accumulatedDelta);
+	void processEntities(entitySet_t entities, int accumulatedDelta) {
+		for(entitySet_t::iterator it = entities.begin(); it != entities.end(); it++) {
+			process(*it, accumulatedDelta);
+		}
+	}
 };
 
 }

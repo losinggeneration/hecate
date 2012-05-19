@@ -50,7 +50,7 @@ protected:
 		}
 	}
 
-	inline bool checkProcessing() {
+	bool checkProcessing() {
 		return true;
 	}
 };

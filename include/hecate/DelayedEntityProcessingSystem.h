@@ -30,6 +30,7 @@
 #ifndef HECATE_DELAYEDENTITYPROCESSINGSYSTEM_H
 #define HECATE_DELAYEDENTITYPROCESSINGSYSTEM_H
 
+#include "Component.h"
 #include "DelayedEntitySystem.h"
 #include "Types.h"
 
@@ -37,14 +38,21 @@ namespace hecate {
 
 class Entity;
 
-class DelayedEntityProcessingSystem : public DelayedEntitySystem {
+template<class C=Component>
+class DelayedEntityProcessingSystem : public DelayedEntitySystem<C> {
 public:
-	template<class T> DelayedEntityProcessingSystem(T *requiredType, std::set<T*> otherTypes);
+	DelayedEntityProcessingSystem(C *requiredType, std::set<C*> otherTypes) :
+	DelayedEntitySystem<C>(getMergedTypes(requiredType, otherTypes)) {
+	}
 
 protected:
 	virtual void process(Entity *e, int accumulatedDelta) = 0;
 	// Do not override
-	void processEntities(entitySet_t entities, int accumulatedDelta);
+	void processEntities(entitySet_t entities, int accumulatedDelta) {
+		for(entitySet_t::iterator it = entities.begin(); it != entities.end(); it++) {
+			process(*it, accumulatedDelta);
+		}
+	}
 };
 
 }

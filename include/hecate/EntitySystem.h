@@ -32,6 +32,8 @@
 
 #include <set>
 
+#include "ComponentTypeManager.h"
+
 namespace hecate {
 
 class Entity;
@@ -40,7 +42,14 @@ class World;
 class EntitySystem {
 public:
 	EntitySystem();
-	template<class T> EntitySystem(std::set<T*> types);
+
+	template<class T> EntitySystem(std::set<T*> types) {
+		for(typename std::set<T*>::iterator it = types.begin(); it != types.end(); it++) {
+			ComponentType ct = ComponentTypeManager::getTypeFor(**it);
+			typeFlags |= ct.getBit();
+		}
+	}
+
 	// Do not override!
 	void process();
 
@@ -57,7 +66,14 @@ protected:
 	void change(Entity *e);
 	// Do not override!
 	void setWorld(World *world);
-	template<class T> static std::set<T*> getMergedTypes(T* requiredType, std::set<T*> otherTypes);
+	template<class T> static std::set<T*> getMergedTypes(T* requiredType, std::set<T*> otherTypes) {
+		std::set<T*> types;
+
+		types.insert(requiredType);
+		types.insert(otherTypes.begin(), otherTypes.end());
+
+		return types;
+	}
 
 	World *world;
 

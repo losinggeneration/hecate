@@ -30,6 +30,7 @@
 #ifndef HECATE_WORLD_H
 #define HECATE_WORLD_H
 
+#include <cstddef>
 #include <set>
 #include "Types.h"
 
@@ -53,7 +54,14 @@ public:
 	TagManager *getTagManager() const;
 
 	void setManager(Manager *manager);
-	template<class T> T *getManager(const T &managerType) const;
+	template<class T> T *getManager(const T &managerType) const {
+		managerSet_t::iterator it = managers.find(managerType);
+		if(it != managers.end()) {
+			return dynamic_cast<T>(*it);
+		}
+
+		return NULL;
+	}
 
 	int getDelta() const;
 	void setDelta(int delta);
