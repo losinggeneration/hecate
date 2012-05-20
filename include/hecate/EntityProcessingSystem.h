@@ -40,11 +40,11 @@ public:
 	EntityProcessingSystem();
 
 protected:
-	void setupRequiredTypes(Component *requiredType, componentList_t otherTypes);
+	void setupRequiredTypes(Component *requiredType, const componentList_t &otherTypes);
 
 	virtual void process(Entity *e) = 0;
 	// Do not override!
-	void processEntities(entitySet_t entities);
+	void processEntities(const entitySet_t &entities);
 	bool checkProcessing();
 };
 

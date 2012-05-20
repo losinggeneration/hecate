@@ -43,9 +43,9 @@ public:
 	IntervalEntityProcessingSystem(int interval);
 
 protected:
-	void setupRequiredTypes(Component *requiredType, componentList_t &otherTypes);
+	void setupRequiredTypes(Component *requiredType, const componentList_t &otherTypes);
 	virtual void process(Entity *e, int accumulatedDelta) = 0;
-	void processEntities(entitySet_t entities, int accumulatedDelta);
+	void processEntities(const entitySet_t &entities, int accumulatedDelta);
 };
 
 }

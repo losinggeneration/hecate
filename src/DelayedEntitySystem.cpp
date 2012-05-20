@@ -76,7 +76,7 @@ bool DelayedEntitySystem::checkProcessing() {
 	return false;
 }
 
-void DelayedEntitySystem::processEntities(entitySet_t entities) {
+void DelayedEntitySystem::processEntities(const entitySet_t &entities) {
 	processEntities(entities, acc);
 }
 

@@ -50,9 +50,9 @@ protected:
 	bool checkProcessing();
 
 	// Do not override
-	void processEntities(entitySet_t entities);
+	void processEntities(const entitySet_t &entities);
 
-	virtual void processEntities(entitySet_t entities, int accumulatedDelta) = 0;
+	virtual void processEntities(const entitySet_t &entities, int accumulatedDelta) = 0;
 
 private:
 	int delay;

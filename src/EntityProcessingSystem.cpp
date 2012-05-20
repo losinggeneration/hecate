@@ -37,11 +37,11 @@ namespace hecate {
 EntityProcessingSystem::EntityProcessingSystem() {
 }
 
-void EntityProcessingSystem::setupRequiredTypes(Component *requiredType, componentList_t otherTypes) {
+void EntityProcessingSystem::setupRequiredTypes(Component *requiredType, const componentList_t &otherTypes) {
 	setupTypes(getMergedTypes(requiredType, otherTypes));
 }
 
-void EntityProcessingSystem::processEntities(entitySet_t entities) {
+void EntityProcessingSystem::processEntities(const entitySet_t &entities) {
 	for(entitySet_t::iterator it = entities.begin(); it != entities.end(); it++) {
 		process((*it));
 	}

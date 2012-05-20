@@ -47,11 +47,11 @@ public:
 	void process();
 
 protected:
-	void setupTypes(componentList_t types);
+	void setupTypes(const componentList_t &types);
 	void setSystemBit(uint64_t bit);
 	void begin();
 	void end();
-	virtual void processEntities(entitySet_t entities) = 0;
+	virtual void processEntities(const entitySet_t &entities) = 0;
 	virtual bool checkProcessing() = 0;
 	void initialize();
 	void added(Entity *e);
@@ -60,7 +60,7 @@ protected:
 	void change(Entity *e);
 	// Do not override!
 	void setWorld(World *world);
-	static componentList_t getMergedTypes(Component *requiredType, componentList_t &otherTypes);
+	static componentList_t getMergedTypes(Component *requiredType, const componentList_t &otherTypes);
 
 	World *world;
 
