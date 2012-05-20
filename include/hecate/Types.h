@@ -30,6 +30,7 @@
 #ifndef HECATE_TYPES_H
 #define HECATE_TYPES_H
 
+#include <list>
 #include <map>
 #include <set>
 
@@ -39,10 +40,16 @@ class Entity;
 class Component;
 class EntitySystem;
 
+// Sets
 typedef std::set<Entity*> entitySet_t;
 typedef std::set<Component*> componentSet_t;
-typedef std::map<Entity*, componentSet_t> entityComponents_t;
 typedef std::set<EntitySystem*> entitySystemSet_t;
+
+// Maps
+typedef std::map<Entity*, componentSet_t> entityComponents_t;
+
+// Lists
+typedef std::list<Component*> componentList_t;
 
 }
 
