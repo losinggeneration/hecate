@@ -29,3 +29,24 @@
 
 // Included just to make sure things compile correctly until all the tests are created for this
 #include "IntervalEntitySystem.h"
+
+#include "World.h"
+
+namespace hecate {
+
+IntervalEntitySystem::IntervalEntitySystem(int interval) {
+	this->interval = interval;
+}
+
+bool IntervalEntitySystem::checkProcessing()  {
+	acc += world->getDelta();
+
+	if(acc >= interval) {
+		acc -= interval;
+		return true;
+	}
+
+	return false;
+}
+
+}

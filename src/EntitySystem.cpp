@@ -45,6 +45,13 @@ void EntitySystem::process() {
 	}
 }
 
+void EntitySystem::setupTypes(componentList_t types) {
+	for(componentList_t::iterator it = types.begin(); it != types.end();) {
+		ComponentType ct = ComponentTypeManager::getTypeFor(**it);
+		typeFlags |= ct.getBit();
+	}
+}
+
 void EntitySystem::setSystemBit(uint64_t bit) {
 	systemBit = bit;
 }
@@ -84,6 +91,16 @@ void EntitySystem::change(Entity *e) {
 
 void EntitySystem::setWorld(World *world) {
 	this->world = world;
+}
+
+componentList_t EntitySystem::getMergedTypes(Component *requiredType, componentList_t &otherTypes)
+{
+	componentList_t types;
+
+	types.push_back(requiredType);
+	types.insert(types.end(), otherTypes.begin(), otherTypes.end());
+
+	return types;
 }
 
 void EntitySystem::remove(Entity *e) {

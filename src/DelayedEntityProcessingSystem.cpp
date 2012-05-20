@@ -29,3 +29,20 @@
 
 // Included just to make sure things compile correctly until all the tests are created for this
 #include "DelayedEntityProcessingSystem.h"
+
+namespace hecate {
+
+DelayedEntityProcessingSystem::DelayedEntityProcessingSystem() {
+}
+
+void DelayedEntityProcessingSystem::setupRequiredTypes(Component *requiredType, componentList_t otherTypes) {
+	setupTypes(getMergedTypes(requiredType, otherTypes));
+}
+
+void DelayedEntityProcessingSystem::processEntities(entitySet_t entities, int accumulatedDelta) {
+	for(entitySet_t::iterator it = entities.begin(); it != entities.end(); it++) {
+		process(*it, accumulatedDelta);
+	}
+}
+
+}

@@ -30,9 +30,9 @@
 #ifndef HECATE_ENTITYSYSTEM_H
 #define HECATE_ENTITYSYSTEM_H
 
-#include <set>
+#include <stdint.h>
 
-#include "ComponentTypeManager.h"
+#include "Types.h"
 
 namespace hecate {
 
@@ -47,16 +47,11 @@ public:
 	void process();
 
 protected:
-	template<class T>void setupTypes(std::set<T*> types) {
-		for(typename std::set<T*>::iterator it = types.begin(); it != types.end(); it++) {
-			ComponentType ct = ComponentTypeManager::getTypeFor(**it);
-			typeFlags |= ct.getBit();
-		}
-	}
+	void setupTypes(componentList_t types);
 	void setSystemBit(uint64_t bit);
 	void begin();
 	void end();
-	virtual void processEntities(std::set<Entity *> entities) = 0;
+	virtual void processEntities(entitySet_t entities) = 0;
 	virtual bool checkProcessing() = 0;
 	void initialize();
 	void added(Entity *e);
@@ -65,14 +60,7 @@ protected:
 	void change(Entity *e);
 	// Do not override!
 	void setWorld(World *world);
-	template<class T> static std::set<T*> getMergedTypes(T* requiredType, std::set<T*> otherTypes) {
-		std::set<T*> types;
-
-		types.insert(requiredType);
-		types.insert(otherTypes.begin(), otherTypes.end());
-
-		return types;
-	}
+	static componentList_t getMergedTypes(Component *requiredType, componentList_t &otherTypes);
 
 	World *world;
 

@@ -30,32 +30,18 @@
 #ifndef HECATE_INTERVALENTITYSYSTEM_H
 #define HECATE_INTERVALENTITYSYSTEM_H
 
-#include "Component.h"
 #include "EntitySystem.h"
-#include "Types.h"
-#include "World.h"
 
 namespace hecate {
 
-class Entity;
+class Component;
 
-template<class C=Component>
 class IntervalEntitySystem : public EntitySystem {
 public:
-	IntervalEntitySystem(int interval, std::set<C*> types) : EntitySystem(types), interval(interval) {
-	}
+	IntervalEntitySystem(int interval);
 
 protected:
-	bool checkProcessing() {
-		acc += world->getDelta();
-
-		if(acc >= interval) {
-			acc -= interval;
-			return true;
-		}
-
-		return false;
-	}
+	bool checkProcessing();
 
 private:
 	int acc;

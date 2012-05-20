@@ -29,3 +29,20 @@
 
 // Included just to make sure things compile correctly until all the tests are created for this
 #include "IntervalEntityProcessingSystem.h"
+
+namespace hecate {
+
+IntervalEntityProcessingSystem::IntervalEntityProcessingSystem(int interval) : IntervalEntitySystem(interval) {
+}
+
+void IntervalEntityProcessingSystem::setupRequiredTypes(Component *requiredType, componentList_t &otherTypes) {
+	setupTypes(getMergedTypes(requiredType, otherTypes));
+}
+
+void IntervalEntityProcessingSystem::processEntities(entitySet_t entities, int accumulatedDelta) {
+	for(entitySet_t::iterator it = entities.begin(); it != entities.end(); it++) {
+		process(*it, accumulatedDelta);
+	}
+}
+
+}

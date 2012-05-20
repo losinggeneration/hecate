@@ -38,20 +38,14 @@ namespace hecate {
 
 class Entity;
 
-template<class C=Component>
-class IntervalEntityProcessingSystem : public IntervalEntitySystem<C> {
+class IntervalEntityProcessingSystem : public IntervalEntitySystem {
 public:
-	IntervalEntityProcessingSystem(int interval, C *requiredType, std::set<C*> otherTypes) :
-	IntervalEntitySystem<C>(getMergedTypes(interval, requiredType, otherTypes)) {
-	}
+	IntervalEntityProcessingSystem(int interval);
 
 protected:
+	void setupRequiredTypes(Component *requiredType, componentList_t &otherTypes);
 	virtual void process(Entity *e, int accumulatedDelta) = 0;
-	void processEntities(entitySet_t entities, int accumulatedDelta) {
-		for(entitySet_t::iterator it = entities.begin(); it != entities.end(); it++) {
-			process(*it, accumulatedDelta);
-		}
-	}
+	void processEntities(entitySet_t entities, int accumulatedDelta);
 };
 
 }

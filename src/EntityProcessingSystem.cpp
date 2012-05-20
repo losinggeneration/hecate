@@ -30,14 +30,17 @@
 // Included just to make sure things compile correctly until all the tests are created for this
 #include "EntityProcessingSystem.h"
 
+#include "Component.h"
+
 namespace hecate {
 
 EntityProcessingSystem::EntityProcessingSystem() {
 }
 
-void EntityProcessingSystem::setupRequiredTypes(Component *requiredType, std::set<Component *> otherTypes) {
+void EntityProcessingSystem::setupRequiredTypes(Component *requiredType, componentList_t otherTypes) {
 	setupTypes(getMergedTypes(requiredType, otherTypes));
 }
+
 void EntityProcessingSystem::processEntities(entitySet_t entities) {
 	for(entitySet_t::iterator it = entities.begin(); it != entities.end(); it++) {
 		process((*it));

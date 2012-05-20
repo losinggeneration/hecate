@@ -30,7 +30,6 @@
 #ifndef HECATE_ENTITYPROCESSINGSYSTEM_H
 #define HECATE_ENTITYPROCESSINGSYSTEM_H
 
-#include "Component.h"
 #include "EntitySystem.h"
 #include "Types.h"
 
@@ -41,7 +40,7 @@ public:
 	EntityProcessingSystem();
 
 protected:
-	void setupRequiredTypes(Component *requiredType, std::set<Component *> otherTypes);
+	void setupRequiredTypes(Component *requiredType, componentList_t otherTypes);
 
 	virtual void process(Entity *e) = 0;
 	// Do not override!
