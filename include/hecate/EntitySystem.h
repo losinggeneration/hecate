@@ -49,13 +49,13 @@ public:
 protected:
 	void setupTypes(const componentList_t &types);
 	void setSystemBit(uint64_t bit);
-	void begin();
-	void end();
+	virtual void begin();
+	virtual void end();
 	virtual void processEntities(const entitySet_t &entities) = 0;
 	virtual bool checkProcessing() = 0;
-	void initialize();
-	void added(Entity *e);
-	void removed(Entity *e);
+	virtual void initialize();
+	virtual void added(Entity *e);
+	virtual void removed(Entity *e);
 	// Do not override!
 	void change(Entity *e);
 	// Do not override!
