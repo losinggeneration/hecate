@@ -46,7 +46,7 @@ void EntitySystem::process() {
 }
 
 void EntitySystem::setupTypes(const componentList_t &types) {
-	for(componentList_t::const_iterator it = types.begin(); it != types.end();) {
+	for(componentList_t::const_iterator it = types.begin(); it != types.end(); it++) {
 		ComponentType ct = ComponentTypeManager::getTypeFor(**it);
 		typeFlags |= ct.getBit();
 	}
