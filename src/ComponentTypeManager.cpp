@@ -40,9 +40,9 @@ ComponentType ComponentTypeManager::getTypeFor(const Component &c) {
 	std::map<std::string, ComponentType>::iterator it = componentTypes.find(c.getType());
 
 	if(it == componentTypes.end()) {
-			ComponentType type;
-			componentTypes[c.getType()] = type;
-			return type;
+		ComponentType type;
+		componentTypes[c.getType()] = type;
+		return type;
 	}
 
 	return it->second;
