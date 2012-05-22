@@ -38,9 +38,9 @@ SystemManager::SystemManager(World *world) : world(world) {
 }
 
 SystemManager::~SystemManager() {
-	for(entitySystemSet_t::iterator it = sets.begin(); it != sets.end(); it++) {
+	for(entitySystemSet_t::iterator it = sets.begin(); it != sets.end();) {
 		EntitySystem *es = *it;
-		sets.erase(it);
+		sets.erase(it++);
 		delete es;
 	}
 }
