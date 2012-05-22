@@ -37,6 +37,14 @@ namespace hecate {
 SystemManager::SystemManager(World *world) : world(world) {
 }
 
+SystemManager::~SystemManager() {
+	for(entitySystemSet_t::iterator it = sets.begin(); it != sets.end(); it++) {
+		EntitySystem *es = *it;
+		sets.erase(it);
+		delete es;
+	}
+}
+
 EntitySystem *SystemManager::setSystem(EntitySystem *system) {
 	system->setWorld(world);
 	sets.insert(system);

@@ -47,6 +47,8 @@ EntityManager::~EntityManager() {
 	entitySet_t::iterator it = removedAndAvailable.begin();
 	while(it != removedAndAvailable.end()) {
 		Entity *e = *it;
+		e->setTypeBits(0);
+		refresh(e);
 		removedAndAvailable.erase(it++);
 		delete e;
 	}
@@ -54,6 +56,8 @@ EntityManager::~EntityManager() {
 	it = activeEntities.begin();
 	while(it != activeEntities.end()) {
 		Entity *e = *it;
+		e->setTypeBits(0);
+		refresh(e);
 		activeEntities.erase(it++);
 		delete e;
 	}
@@ -157,8 +161,10 @@ void EntityManager::removeComponent(Entity *e, const ComponentType &type) {
 		componentMap_t &components = componentsByType[type.getId()];
 		componentMap_t::iterator ct = components.find(e->getId());
 		if(ct != components.end()) {
+			Component *c = ct->second;
 			components.erase(ct);
 			e->removeTypeBit(type.getBit());
+			delete c;
 		}
 	}
 }

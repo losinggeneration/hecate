@@ -42,6 +42,7 @@ class World;
 class EntitySystem {
 public:
 	EntitySystem();
+	virtual ~EntitySystem() {}
 
 	// Do not override!
 	void process();
