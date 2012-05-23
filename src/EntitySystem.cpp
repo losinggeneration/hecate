@@ -34,7 +34,7 @@
 
 namespace hecate {
 
-EntitySystem::EntitySystem() {
+EntitySystem::EntitySystem() : systemBit(0), typeFlags(0) {
 }
 
 void EntitySystem::process() {
