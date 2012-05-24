@@ -48,6 +48,7 @@ EntityManager::~EntityManager() {
 	while(it != removedAndAvailable.end()) {
 		Entity *e = *it;
 		e->setTypeBits(0);
+		removeComponentsOfEntity(e);
 		refresh(e);
 		removedAndAvailable.erase(it++);
 		delete e;
@@ -57,6 +58,7 @@ EntityManager::~EntityManager() {
 	while(it != activeEntities.end()) {
 		Entity *e = *it;
 		e->setTypeBits(0);
+		removeComponentsOfEntity(e);
 		refresh(e);
 		activeEntities.erase(it++);
 		delete e;
