@@ -26,20 +26,20 @@ BOOST_AUTO_TEST_SUITE(ComponentMapper_Test)
 
 BOOST_AUTO_TEST_CASE(ComponentMapper_Constructor_Case) {
 	World w;
-	C1 c1;
-	C2 c2;
 	Entity *e1 = w.createEntity(), *e2 = w.createEntity();
-	e1->addComponent(&c1);
-	e1->addComponent(&c2);
-	e2->addComponent(&c1);
+	C1 *c1 = new C1();
+	C2 *c2 = new C2();
+	e1->addComponent(c1);
+	e1->addComponent(c2);
+	e2->addComponent(new C1());
 	ComponentMapper<C1> cm1(C1(), &w);
-	ComponentMapper<C2> cm2(c2, &w);
-	Component *c1a = e1->getComponent(c1);
+	ComponentMapper<C2> cm2(C2(), &w);
+	Component *c1a = e1->getComponent(C1());
 
 	// Check that c1 is correctly returned
-	BOOST_CHECK(&c1 == cm1.get(*e1));
-	// Check that e1 & e2 both have c1
-	BOOST_CHECK(cm1.get(*e1) == cm1.get(*e2));
+	BOOST_CHECK(c1 == cm1.get(*e1));
+	// Check that e1 & e2's c1 are not equal
+	BOOST_CHECK(cm1.get(*e1) != cm1.get(*e2));
 	// e2 doesn't have a c2
 	BOOST_CHECK(cm2.get(*e2) == NULL);
 	// e2 doesn't have a c2, but e1 does

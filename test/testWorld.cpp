@@ -91,19 +91,19 @@ BOOST_AUTO_TEST_CASE(Entity_Component_Case)
 {
 	World w;
 	Entity *ep1 = w.createEntity(), *ep2;
-	C1 c1;
-	C2 c2;
+	C1 *c1 = new C1();
+	C2 *c2 = new C2();
 	ep1 = w.createEntity();
 	ep2 = w.createEntity();
-	ep1->addComponent(&c1);
-	ep1->addComponent(&c2);
-	ep2->addComponent(&c1);
-	ComponentType ct1 = ComponentTypeManager::getTypeFor(c1), ct2 = ComponentTypeManager::getTypeFor(c2);
+	ep1->addComponent(c1);
+	ep1->addComponent(c2);
+	ep2->addComponent(new C1());
+	ComponentType ct1 = ComponentTypeManager::getTypeFor(*c1), ct2 = ComponentTypeManager::getTypeFor(*c2);
 
-	C1 *c1g1 = ep1->getComponent(c1);
+	C1 *c1g1 = ep1->getComponent(*c1);
 	BOOST_CHECK(c1g1 != NULL);
 
-	C2 *c2g1 = ep1->getComponent(c2);
+	C2 *c2g1 = ep1->getComponent(*c2);
 	BOOST_CHECK(c2g1 != NULL);
 
 	Component *c1g2 = ep1->getComponent(ct1), *c2g2 = ep1->getComponent(ct2);
@@ -111,7 +111,7 @@ BOOST_AUTO_TEST_CASE(Entity_Component_Case)
 	BOOST_CHECK(c2g1 == c2g2);
 
 	// This entity does not have this component
-	C2 *c2gn1 = ep2->getComponent(c2);
+	C2 *c2gn1 = ep2->getComponent(*c2);
 	Component *c2gn2 = ep2->getComponent(ct2);
 	BOOST_CHECK(c2gn1 == c2gn2);
 	BOOST_CHECK(c2gn1 == NULL);
