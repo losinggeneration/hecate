@@ -39,7 +39,7 @@
 namespace hecate {
 
 EntityManager::EntityManager(World *world) : world(world) {
-	count = totalCreated = totalRemoved = 0;
+	count = totalCreated = totalRemoved = uniqueEntityId = 0;
 	nextAvailableId = 1;
 }
 

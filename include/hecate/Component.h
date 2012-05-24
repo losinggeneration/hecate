@@ -48,7 +48,7 @@ public:
 	virtual ~Component() {}
 
 protected:
-	Component() {}
+	Component() { type = ""; }
 
 #ifndef NO_RTTI
 	template<class T>

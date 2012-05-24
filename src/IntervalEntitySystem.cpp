@@ -34,7 +34,7 @@
 
 namespace hecate {
 
-IntervalEntitySystem::IntervalEntitySystem(int interval) {
+IntervalEntitySystem::IntervalEntitySystem(int interval) : acc(0) {
 	this->interval = interval;
 }
 

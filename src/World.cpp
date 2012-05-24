@@ -36,7 +36,7 @@
 
 namespace hecate {
 
-World::World() {
+World::World() : delta(0) {
 	entityManager = new EntityManager(this);
 	groupManager = new GroupManager(this);
 	systemManager = new SystemManager(this);
