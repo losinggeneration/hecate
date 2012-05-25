@@ -45,7 +45,7 @@ public:
 		type = ComponentTypeManager::getTypeFor(component);
 	}
 
-	T *get(const Entity &e) {
+	inline T *get(const Entity &e) {
 		return dynamic_cast<T*>(em->getComponent(e, type));
 	}
 
