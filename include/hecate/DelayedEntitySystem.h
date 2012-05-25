@@ -38,7 +38,7 @@ namespace hecate {
 class DelayedEntitySystem : public EntitySystem {
 public:
 	DelayedEntitySystem();
-	void startDelayedRun(int delay);
+	void startDelayedRun(unsigned int delay);
 	int getInitialTimeDelay() const;
 	int getRemainingTimeUntilProcessing() const;
 	bool isRunning() const;
@@ -52,12 +52,12 @@ protected:
 	// Do not override
 	void processEntities(const entitySet_t &entities);
 
-	virtual void processEntities(const entitySet_t &entities, int accumulatedDelta) = 0;
+	virtual void processEntities(const entitySet_t &entities, unsigned int accumulatedDelta) = 0;
 
 private:
-	int delay;
+	unsigned int delay;
 	bool running;
-	int acc;
+	unsigned int acc;
 };
 
 }

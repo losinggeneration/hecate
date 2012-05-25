@@ -44,9 +44,9 @@ public:
 
 protected:
 	void setupRequiredTypes(Component *requiredType, const componentList_t &otherTypes);
-	virtual void process(Entity *e, int accumulatedDelta) = 0;
+	virtual void process(Entity *e, unsigned int accumulatedDelta) = 0;
 	// Do not override
-	void processEntities(const entitySet_t &entities, int accumulatedDelta);
+	void processEntities(const entitySet_t &entities, unsigned int accumulatedDelta);
 };
 
 }

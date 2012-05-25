@@ -39,7 +39,7 @@ void DelayedEntityProcessingSystem::setupRequiredTypes(Component *requiredType, 
 	setupTypes(getMergedTypes(requiredType, otherTypes));
 }
 
-void DelayedEntityProcessingSystem::processEntities(const entitySet_t &entities, int accumulatedDelta) {
+void DelayedEntityProcessingSystem::processEntities(const entitySet_t &entities, unsigned int accumulatedDelta) {
 	for(entitySet_t::iterator it = entities.begin(); it != entities.end(); it++) {
 		process(*it, accumulatedDelta);
 	}

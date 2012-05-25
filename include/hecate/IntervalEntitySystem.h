@@ -38,14 +38,14 @@ class Component;
 
 class IntervalEntitySystem : public EntitySystem {
 public:
-	IntervalEntitySystem(int interval);
+	IntervalEntitySystem(unsigned int interval);
 
 protected:
-	bool checkProcessing();
+	virtual bool checkProcessing();
 
 private:
-	int acc;
-	int interval;
+	unsigned int acc;
+	unsigned int interval;
 };
 
 }
