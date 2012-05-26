@@ -1,5 +1,7 @@
 include_directories(${CMAKE_SOURCE_DIR}/include/hecate)
 
+add_subdirectory(utils)
+
 set(HECATE_FILES
 	ComponentType.cpp
 	ComponentTypeManager.cpp
@@ -21,6 +23,8 @@ set(HECATE_FILES
 add_library(hecate_static STATIC
 	${HECATE_FILES}
 )
+
+target_link_libraries(hecate_static utils)
 
 set_target_properties(hecate_static PROPERTIES VERSION ${HECATE_VERSION})
 
@@ -44,6 +48,8 @@ if(BUILD_SHARED_LIBRARY)
 	add_library(hecate SHARED
 		${HECATE_FILES}
 	)
+
+	target_link_libraries(hecate utils)
 
 	set_target_properties(hecate PROPERTIES VERSION ${HECATE_VERSION})
 

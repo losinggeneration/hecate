@@ -4,9 +4,10 @@ include_directories(${CMAKE_SOURCE_DIR}/include/hecate)
 
 set(HECATE_TEST_SRCS
 	testRunner.cpp
-	testComponentMapper.cpp
-	testGroupManager.cpp
-	testWorld.cpp
+	testBag.cpp
+# 	testComponentMapper.cpp
+# 	testGroupManager.cpp
+# 	testWorld.cpp
 )
 
 add_executable(test_hecate ${HECATE_TEST_SRCS})

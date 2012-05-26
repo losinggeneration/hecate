@@ -146,9 +146,19 @@ void EntityManager::refresh(Entity *e) {
 void EntityManager::addComponent(Entity *e, Component *component) {
 	ComponentType type = ComponentTypeManager::getTypeFor(*component);
 
-	componentsByType[type.getId()][e->getId()] = component;
+	if(type.getId() >= componentsByType.capacity()) {
+		componentsByType.set(type.getId(), Bag<Component*>());
+	}
+
+	Bag<Component*> components = componentsByType.at(type.getId());
+	if(components.empty()) {
+		componentsByType.set(type.getId(), components);
+	}
+
+	components.set(e->getId(), component);
 
 	e->addTypeBit(type.getBit());
+
 }
 
 void EntityManager::removeComponent(Entity *e, Component *component) {
@@ -157,61 +167,35 @@ void EntityManager::removeComponent(Entity *e, Component *component) {
 }
 
 void EntityManager::removeComponent(Entity *e, const ComponentType &type) {
-	componentsTypeMap_t::iterator it = componentsByType.find(type.getId());
-
-	if(it != componentsByType.end()) {
-		componentMap_t &components = componentsByType[type.getId()];
-		componentMap_t::iterator ct = components.find(e->getId());
-		if(ct != components.end()) {
-			Component *c = ct->second;
-			components.erase(ct);
-			e->removeTypeBit(type.getBit());
-			delete c;
-		}
-	}
+	Bag<Component*> components = componentsByType.at(type.getId());
+	components.set(e->getId(), NULL);
+	e->removeTypeBit(type.getBit());
 }
 
 Component *EntityManager::getComponent(const Entity &e, const ComponentType &type) {
-	componentsTypeMap_t::iterator it = componentsByType.find(type.getId());
-
-	if(it != componentsByType.end()) {
-		componentMap_t &components = componentsByType[type.getId()];
-		componentMap_t::iterator ct = components.find(e.getId());
-
-		if(ct != components.end()) {
-			return ct->second;
-		}
-	}
-
+	Bag<Component*> bag = componentsByType.at(type.getId());
+	if(!bag.empty() && e.getId() < bag.capacity())
+		return bag.at(e.getId());
 	return NULL;
 }
 
 const componentSet_t EntityManager::getComponents(const Entity &e) {
 	entityComponents.clear();
-
-	for(componentsTypeMap_t::iterator it = componentsByType.begin(); it != componentsByType.end(); it++) {
-		componentMap_t &components = it->second;
-		componentMap_t::iterator ct = components.find(e.getId());
-
-		if(ct != components.end()) {
-			entityComponents.insert(ct->second);
+	for(int a = 0; componentsByType.size() > a; a++) {
+		Bag<Component*> components = componentsByType.at(a);
+		if(!components.empty() && e.getId() < components.size()) {
+			Component *component = components.at(e.getId());
+			if(component != NULL) {
+				entityComponents.insert(component);
+			}
 		}
 	}
-
 	return entityComponents;
+
 }
 
 void EntityManager::removeComponentsOfEntity(Entity *e) {
-	for(componentsTypeMap_t::iterator it = componentsByType.begin(); it != componentsByType.end(); it++) {
-		componentMap_t &components = it->second;
 
-		componentMap_t::iterator ct = components.find(e->getId());
-		if(ct != components.end()) {
-			Component *c = ct->second;
-			components.erase(ct);
-			delete c;
-		}
-	}
 }
 
 }

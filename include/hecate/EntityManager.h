@@ -35,6 +35,7 @@
 #include <string>
 #include <stdint.h>
 
+#include "Bag.h"
 #include "Types.h"
 
 namespace hecate {
@@ -88,7 +89,8 @@ private:
 
 	componentSet_t entityComponents;
 	// Maped by type.id for components, and then by entity.id for each entity
-	componentsTypeMap_t componentsByType;
+	Bag<Bag<Component*> > componentsByType;
+// 	componentsTypeMap_t componentsByType;
 
 	friend class Entity;
 	friend class World;
