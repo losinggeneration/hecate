@@ -40,7 +40,7 @@
 
 namespace hecate {
 
-Entity::Entity(World *world, int id) : world(world), id(id), uniqueId(0), entityManager(world->getEntityManager()) {
+Entity::Entity(World *world, int id) : id(id), uniqueId(0), world(world), entityManager(world->getEntityManager()) {
 	reset();
 }
 

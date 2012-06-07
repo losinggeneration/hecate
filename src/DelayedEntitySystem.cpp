@@ -34,7 +34,7 @@
 
 namespace hecate {
 
-DelayedEntitySystem::DelayedEntitySystem() : delay(0), acc(0), running(false) {
+DelayedEntitySystem::DelayedEntitySystem() : delay(0), running(false), acc(0) {
 }
 
 void DelayedEntitySystem::startDelayedRun(unsigned int delay) {
