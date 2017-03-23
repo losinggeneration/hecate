@@ -1,6 +1,6 @@
-#Hecate Entity System Framework
+# Hecate Entity System Framework
 
-##What is it?
+## What is it?
 Hecate is an Entity System framework for games, written in C++, to manage
 entities in a game world, and is heavily based upon Artemis Entity System
 Framework. Artemis (thus Hecate) is inspired by "Entity Systems are the Future
@@ -8,15 +8,15 @@ of MMORPG" articles by Adam Martin on t-machine.org. Ideas were also borrowed
 from Ted Brown who implemented a simple high-performance Entity System in
 Processing.
 
-##What does Hecate mean?
+## What does Hecate mean?
 Hecate, in Greek mythology, is the cousin of Artemis. Thus, I feel it's a
 fitting name for a C++ version of a Java framework.
 
-###Disclaimer:
+### Disclaimer:
 Hecate is considered experimental and **unmaintained**. **Use in your projects at
 your own risk.**
 
-##License
+## License
 Being based upon and using logic from Artemis, they share the same license.
 The Artemis & Hecate projects are licensed under the Simplified BSD License.
 Original Artemis license text is as follows (also in file LICENSE.artemis):
